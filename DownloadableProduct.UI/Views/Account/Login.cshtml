@@ -5,12 +5,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Login</h2>
-<form method="post">
-    @Html.AntiForgeryToken()
-    @Html.Partial("ErrorPartialView")
-    <p>PhoneNumber : <input type="text" asp-for="PhoneNumber" /></p>
-    <p>Password : <input type="password" asp-for="Password" /></p>
-    <p><input type="submit" value="Login" /></p>
-</form>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li class="active">ورود به ناحیه کاربری</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="login__title">ورود به ناحیه کاربری ایران گرافیک</div>
+                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید به پنل کاربری خود مراجعه
+                    کنید
+                </div>
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("ErrorPartialView")
+                    <div class="form-group">
+                        <label> شماره تلفن خود را وارد کنید </label>
+                        <input type="text" asp-for="PhoneNumber" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label> رمز عبور خود را وارد کنید </label>
+                        <input type="password" asp-for="Password" class="form-control">
+                    </div>
+                    <div class="checkbox">
+                        <label><input type="checkbox"> مرا به خاطر بسپار</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">ورود</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
