@@ -13,6 +13,7 @@ namespace DownloadableProduct.Identity
 
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -33,6 +34,16 @@ namespace DownloadableProduct.Identity
             product.Property(c => c.SmallImage).HasMaxLength(60).IsRequired(false);
             product.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
             product.Property(c => c.UserUpoadImage).HasMaxLength(60).IsRequired(false);
+
+            var purchase = builder.Entity<Purchase>();
+
+            purchase.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
+
+            purchase.
+                HasOne(c => c.Product)
+                .WithMany(c => c.Purchases)
+                .HasForeignKey(c => c.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

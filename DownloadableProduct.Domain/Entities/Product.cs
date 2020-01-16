@@ -1,5 +1,7 @@
 ﻿using DownloadableProduct.Domain.Enums;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DownloadableProduct.Domain.Entities
 {
@@ -19,5 +21,6 @@ namespace DownloadableProduct.Domain.Entities
         public string UserUpoadImage { get; set; }
         public ProductStatus Status { get; set; }
         public string UserId { get; set; }
+        public ICollection<Purchase> Purchases { get; set; }
     }
 }
