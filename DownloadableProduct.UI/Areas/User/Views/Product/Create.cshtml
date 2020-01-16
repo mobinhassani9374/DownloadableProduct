@@ -1,0 +1,19 @@
+﻿@using DownloadableProduct.UI.Models.Product
+@model ProductCreateViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ایجاد محصول جدید</h2>
+<form method="post">
+    @Html.AntiForgeryToken()
+    @Html.Partial("ErrorPartialView")
+    <p>عنوان : <input type="text" asp-for="Title" /></p>
+    <p>توضیحات : <textarea asp-for="Description"></textarea></p>
+    <p>قیمت : <input type="text" asp-for="Price" /></p>
+    <p>پسوند فایل : <input type="text" asp-for="Extension" /></p>
+    <p>ابعاد : <input type="text" asp-for="Dimensions" /></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+

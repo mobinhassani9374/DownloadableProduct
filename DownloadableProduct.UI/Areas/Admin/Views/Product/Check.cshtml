@@ -1,0 +1,19 @@
+﻿@using DownloadableProduct.Domain.Dto.Product
+@model ProductDto
+@{
+    ViewData["Title"] = "Check";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Check</h2>
+<p>Title : @Model.Title</p>
+<p>Description : @Model.Description</p>
+<p>Price : @Model.Price</p>
+<p>پسوند فایل  : @Model.Extension</p>
+<p>ابعاد  : @Model.Dimensions</p>
+<p>CreateDate  : @Model.CreateDate</p>
+<p>UserUpoadImage  : <img src="~/Files/@Model.UserUpoadImage" style="width:150px;height:150px;"/></p>
+<p><a href="/Admin/Product/SetSmallImage/@Model.Id">تایید و مرحله بعد</a></p>
+
+
+

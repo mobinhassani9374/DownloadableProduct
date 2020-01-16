@@ -1,0 +1,15 @@
+﻿@using DownloadableProduct.Domain.Dto.Product
+@model ProductDto
+@{
+    ViewData["Title"] = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Detail</h2>
+<p>Title : @Model.Title</p>
+<p>Description : @Model.Description</p>
+<p>Price : @Model.Price</p>
+<p>پشوند قایل : @Model.Extension</p>
+<p>ابعاد : @Model.Dimensions</p>
+<p><a href="">خرید</a></p>
+

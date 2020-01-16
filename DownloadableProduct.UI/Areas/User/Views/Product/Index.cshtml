@@ -1,0 +1,26 @@
+﻿@using DownloadableProduct.Domain.Dto.Product
+@model List<ProductDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+<table>
+    <tr>
+        <td>#</td>
+        <td>عنوان</td>
+        <td>وضعیت</td>
+        <td>قیمت</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Title</td>
+            <td>@item.Status</td>
+            <td>@item.Price</td>
+        </tr>
+    }
+</table>
+

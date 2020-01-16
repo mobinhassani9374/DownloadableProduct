@@ -1,0 +1,18 @@
+﻿@using DownloadableProduct.UI.Models.Account
+@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Register</h2>
+<form method="post">
+    @Html.AntiForgeryToken()
+    @Html.Partial("ErrorPartialView")
+    <p>PhoneNumber : <input type="text" asp-for="PhoneNumber" /></p>
+    <p>FullName : <input type="text" asp-for="FullName" /></p>
+    <p>Password : <input type="password" asp-for="Password" /></p>
+    <p>ConfirmPassword : <input type="password" asp-for="ConfirmPassword" /></p>
+    <p><input type="submit" value="Register" /></p>
+</form>
+

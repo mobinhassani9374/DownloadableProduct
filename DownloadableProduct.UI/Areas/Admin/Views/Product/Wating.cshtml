@@ -1,0 +1,30 @@
+﻿@using DownloadableProduct.Domain.Dto.Product
+@model List<ProductDto>
+@{
+    ViewData["Title"] = "Wating";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Wating</h2>
+<table>
+    <tr>
+        <td>#</td>
+        <td>عنوان</td>
+        <td>قیمت</td>
+        <td>کاربر</td>
+        <td>بررسی</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Title</td>
+            <td>@item.Price</td>
+            <td>@item.User?.FullName</td>
+            <td>
+                <a href="/Admin/Product/Check/@item.Id">بررسی</a>
+            </td>
+        </tr>
+    }
+</table>
+

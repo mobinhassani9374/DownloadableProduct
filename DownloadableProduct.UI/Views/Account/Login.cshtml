@@ -1,0 +1,16 @@
+﻿@using DownloadableProduct.UI.Models.Account
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Login</h2>
+<form method="post">
+    @Html.AntiForgeryToken()
+    @Html.Partial("ErrorPartialView")
+    <p>PhoneNumber : <input type="text" asp-for="PhoneNumber" /></p>
+    <p>Password : <input type="password" asp-for="Password" /></p>
+    <p><input type="submit" value="Login" /></p>
+</form>
+

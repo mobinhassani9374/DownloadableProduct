@@ -1,0 +1,16 @@
+﻿@using DownloadableProduct.UI.Models.Product
+@model SetImageViewModel
+@{
+    ViewData["Title"] = "SetImage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>SetImage</h2>
+<form method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    @Html.Partial("ErrorPartialView")
+    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />
+    <p><input type="file" name="@Html.NameFor(c=>c.Image)" /></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+
