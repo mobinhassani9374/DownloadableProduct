@@ -47,10 +47,26 @@
                     <li><a href="#">درباره ما</a></li>
                     <li><a href="#">تماس با ما</a></li>
                     <li><a href="#">راهنما</a></li>
-                </ul>
+                </ul>                
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/register">ثبت نام</a></li>
-                    <li><a href="/login">ورود</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("User"))
+                        {
+                            <li><a>خوش آمدید ! @User.GetFullName()</a></li>                       
+                            <li><a href="/User/">ناحیه کاربری</a></li>                       
+                        }
+                        @*@if (User.IsInRole("Admin"))
+                        {
+                            <li><a href="/Admin/">پنل ادمین</a></li>                       
+                        }*@
+                        <li><a href="/logout">خروج</a></li>                     
+                    }
+                    else
+                    {
+                        <li><a href="/register">ثبت نام</a></li>
+                        <li><a href="/login">ورود</a></li>                   
+                    }
                 </ul>
             </div>
         </div>
