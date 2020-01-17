@@ -1,7 +1,7 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
 @model List<ProductDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ایران گرافیک";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -16,4 +16,13 @@
         <hr />
     </div>
 }
+
+<script>
+    $(function(){
+        toastr.success('با موفقیت انجام شد', {timeOut: 1000})
+         //toastr.error('سلام خوش آمدید')
+         //toastr.warning('سلام خوش آمدید')
+         //toastr.info('سلام خوش آمدید')
+    })
+</script>
 

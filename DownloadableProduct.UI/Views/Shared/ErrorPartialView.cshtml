@@ -1,6 +1,6 @@
 ﻿@if (ViewContext.ModelState.ErrorCount > 0)
 {
-    <div>
+    <div class="alert alert-danger">
         @Html.ValidationSummary()
     </div>
 }

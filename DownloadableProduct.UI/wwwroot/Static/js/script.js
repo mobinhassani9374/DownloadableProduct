@@ -38,8 +38,41 @@ $(document).ready(function () {
   $('[data-role="slick-right"]').on('click', function () {
     $('.slick__item').slick('slickNext');
   })
+
+  toastr.options = {
+    "closeButton": true,
+    "debug": false,
+    "progressBar": true,
+    "positionClass": "toast-top-left",
+    "preventDuplicates": false,
+    "onclick": null,
+    // "timeOut": "10000",
+  }
 });
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+
+$(function () {
+  $('form').validator({
+    validHandlers: {
+      '.customhandler': function (input) {
+        //may do some formatting before validating
+        input.val(input.val().toUpperCase());
+        //return true if valid
+        return input.val() === 'JQUERY' ? true : false;
+      }
+    }
+  });
+
+  $('form').submit(function (e) {
+    e.preventDefault();
+    if ($('form').validator('check') < 1) {
+      $('form').unbind('submit').submit();
+    }
+    else {
+      //toastr.error('در وارد کردن اطلاعات دقت کنید ')
+    }
+  })
+});
