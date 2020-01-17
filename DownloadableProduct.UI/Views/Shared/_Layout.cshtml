@@ -41,8 +41,17 @@
                     <li><a href="#">راهنما</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/register">ثبت نام</a></li>
-                    <li><a href="/login">ورود</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="/logout">خروج</a></li>
+                        <li><a href="/user">@User.GetFullName()</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/register">ثبت نام</a></li>
+                        <li><a href="/login">ورود</a></li>
+                    }
+
                 </ul>
             </div>
         </div>

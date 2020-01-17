@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>اینجا مثلا بانک هستش که میتونه شبیه سازی کنه یک عملیات موفق و ناموفق را.</h2>
+
+<p><a href="/payment/success/@ViewBag.Id">موفق</a></p>
+<p><a href="/payment/error/@ViewBag.Id">ناموفق</a></p>
+

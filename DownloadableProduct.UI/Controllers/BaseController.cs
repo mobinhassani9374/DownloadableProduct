@@ -55,6 +55,7 @@ namespace DownloadableProduct.UI.Controllers
             errors.Add("ExtensionLengthHaveNot100Character", "پسوند نباید بیش از 100 کارکتر داشته باشد");
             errors.Add("ImageIsNull", "عکسی را انتخاب نکرده اید");
             errors.Add("EntityNotFoundByKey", "داده ای با شناسه ارسالی یافت نشد");
+            errors.Add("DuplicateUserName","شماره همراه وارد شده تکراری است");
         }
     }
 }

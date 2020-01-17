@@ -6,10 +6,11 @@
 }
 
 <h2>Detail</h2>
+@Html.Partial("ErrorPartialView")
 <p>Title : @Model.Title</p>
 <p>Description : @Model.Description</p>
 <p>Price : @Model.Price</p>
 <p>پشوند قایل : @Model.Extension</p>
 <p>ابعاد : @Model.Dimensions</p>
-<p><a href="">خرید</a></p>
+<p><a href="/Home/PurchaseRequest/@Model.Id">خرید</a></p>
 
