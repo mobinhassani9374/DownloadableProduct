@@ -1,19 +1,74 @@
 ﻿@using DownloadableProduct.UI.Models.Product
 @model ProductCreateViewModel
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "ایجاد محصول جدید";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ایجاد محصول جدید</h2>
-<form method="post">
-    @Html.AntiForgeryToken()
-    @Html.Partial("ErrorPartialView")
-    <p>عنوان : <input type="text" asp-for="Title" /></p>
-    <p>توضیحات : <textarea asp-for="Description"></textarea></p>
-    <p>قیمت : <input type="text" asp-for="Price" /></p>
-    <p>پسوند فایل : <input type="text" asp-for="Extension" /></p>
-    <p>ابعاد : <input type="text" asp-for="Dimensions" /></p>
-    <p><input type="submit" value="Submit" /></p>
-</form>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری من</a></li>
+            <li class="active">ایجاد محصول جدید</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="login__title">ایجاد محصول جدید</div>
+                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید محصول جدید ایجاد کنید 
+                    کنید
+                </div>
+                <div class="wizard-progress">
+                    @* // complete *@
+                    <div class="step in-progress">
+                         اطلاعات پایه
+                        <div class="node"></div>
+                    </div>
+                    <div class="step">
+                         انتخاب عکس 
+                        <div class="node"></div>
+                    </div>
+                    <div class="step">
+                         انتخاب فایل محصول
+                        <div class="node"></div>
+                    </div>
+                    <div class="step">
+                         پایان
+                        <div class="node"></div>
+                    </div>                    
+                </div>
+                <form method="post">                   
+                    <div class="form-group">
+                        <label> عنوان محصول را وارد کنید : </label>
+                        <input data-error-msg="این فیلد الزامی است" type="text" required asp-for="Title" class="form-control" placeholder="عنوان محصول">
+                    </div>
+                    <div class="form-group">
+                        <label>   قیمت محصول را وارد کنید : </label>
+                        <input type="number" min="0" required asp-for="Price" class="form-control" placeholder="قیمت محصول">
+                    </div>                   
+                    <div class="form-group">
+                        <label>    پسوند فایل را وارد کنید : </label>
+                        <input type="text" required asp-for="Extension" class="form-control" placeholder="پسوند فایل">
+                    </div>                   
+                    <div class="form-group">
+                        <label>    ابعاد فایل را وارد کنید : </label>
+                        <input type="text" required asp-for="Dimensions" class="form-control" placeholder="ابعاد فایل">
+                    </div>                   
+                    <div class="form-group">
+                        <label>     توضیحات محصول را وارد کنید : </label>
+                        <textarea required asp-for="Description" rows="7" class="form-control" placeholder="توضیحات محصول"></textarea>
+                    </div>                   
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">تایید و مرحله بعد</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
