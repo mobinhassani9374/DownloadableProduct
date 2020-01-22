@@ -1,16 +1,70 @@
 ﻿@using DownloadableProduct.UI.Models.Product
 @model SetImageViewModel
 @{
-    ViewData["Title"] = "SetImage";
+    ViewData["Title"] = "ایجاد محصول جدید (عکس)";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>SetImage</h2>
-<form method="post" enctype="multipart/form-data">
-    @Html.AntiForgeryToken()
-    @Html.Partial("ErrorPartialView")
-    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />
-    <p><input type="file" name="@Html.NameFor(c=>c.Image)" /></p>
-    <p><input type="submit" value="Submit"/></p>
-</form>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری من</a></li>
+            <li class="active">ایجاد محصول جدید</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="login__title">ایجاد محصول جدید</div>
+                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید محصول جدید ایجاد کنید 
+                    کنید
+                </div>
+                <div class="wizard-progress">                   
+                    <div class="step complete">
+                         اطلاعات پایه
+                        <div class="node"></div>
+                    </div>
+                    <div class="step in-progress">
+                         انتخاب عکس 
+                        <div class="node"></div>
+                    </div>
+                    <div class="step">
+                         انتخاب فایل محصول
+                        <div class="node"></div>
+                    </div>
+                    <div class="step">
+                         پایان
+                        <div class="node"></div>
+                    </div>                    
+                </div>
+                <form method="post" enctype="multipart/form-data">   
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("ErrorPartialView")
+                    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />                
+                    <div class="form-group">
+                        <div class="alert alert-warning">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            عکس آپلودی برای محصول باید کمتر از 500 کیلو بایت باشد
+                        </div>
+                    </div>                                      
+                    <div class="form-group">
+                        <label> عکس محصول را وارد کنید : </label>
+                        <input type="file" required name="@Html.NameFor(c=>c.Image)" class="form-control" />
+                    </div>                                      
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">تایید و مرحله بعد</button>                        
+                    </div>
+                    @* <div class="form-group">
+                        <a type="button" href="/User/Product/Create" class="btn btn-default"><i class="fa fa-arrow-right"></i> مرحله قبل</a>                       
+                    </div> *@
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
