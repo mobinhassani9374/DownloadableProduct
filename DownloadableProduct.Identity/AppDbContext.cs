@@ -44,6 +44,10 @@ namespace DownloadableProduct.Identity
                 .WithMany(c => c.Purchases)
                 .HasForeignKey(c => c.ProductId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            var checkout = builder.Entity<Checkout>();
+
+            checkout.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
         }
     }
 }
