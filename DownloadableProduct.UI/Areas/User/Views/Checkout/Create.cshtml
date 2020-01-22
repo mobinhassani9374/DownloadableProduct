@@ -1,0 +1,15 @@
+﻿@using DownloadableProduct.UI.Models.Checkout
+@model CheckoutCreateViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ایجاد درخواست تسویه حساب</h2>
+<form method="post">
+    @Html.AntiForgeryToken()
+    @Html.Partial("ErrorPartialView")
+    <p>قیمت : <input type="number" asp-for="Price" /></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+

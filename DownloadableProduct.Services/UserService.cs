@@ -1,5 +1,7 @@
 ﻿using DownloadableProduct.DataAccess.Repositories;
+using DownloadableProduct.Domain.Dto.Checkout;
 using DownloadableProduct.Domain.Dto.User;
+using DownloadableProduct.Domain.Enums;
 using DownloadableProduct.Services.Mapping;
 using DownloadableProduct.Utillity;
 using System;
@@ -9,9 +11,11 @@ namespace DownloadableProduct.Services
     public class UserService
     {
         private readonly PurchaseRepository _purchaseRepository;
-        public UserService(PurchaseRepository purchaseRepository)
+        private readonly CheckoutRepository _checkoutRepository;
+        public UserService(PurchaseRepository purchaseRepository, CheckoutRepository checkoutRepository)
         {
             _purchaseRepository = purchaseRepository;
+            _checkoutRepository = checkoutRepository;
         }
         public ServiceResult<int> PurchaseRequest(ParchaseRequestDto dto)
         {
@@ -29,6 +33,19 @@ namespace DownloadableProduct.Services
             else result.AddError("Error");
 
             return result;
+        }
+        public ServiceResult CheckoutRequest(CheckoutRequestDto dto)
+        {
+            var entity = dto.ToEntity();
+
+            entity.CreateDate = DateTime.Now;
+            entity.Status = CheckoutStatus.Wating;
+
+            _checkoutRepository.Insert(entity);
+
+            _checkoutRepository.Save();
+
+            return ServiceResult.Okay();
         }
         public ServiceResult SuccessPayment(int id)
         {
