@@ -1,26 +1,51 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
 @model List<ProductDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "لیست محصولات من";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-<table>
-    <tr>
-        <td>#</td>
-        <td>عنوان</td>
-        <td>وضعیت</td>
-        <td>قیمت</td>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Title</td>
-            <td>@item.Status</td>
-            <td>@item.Price</td>
-        </tr>
-    }
-</table>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری</a></li>
+            <li class="active">لیست محصولات من</li>
+        </ol>
+    </div>
+</div>
 
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="panel panel-success">
+                    <div class="panel-heading">لیست محصولات من</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>عنوان </th>
+                                    <th>وضعیت</th>
+                                    <th>قیمت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.Status</td>
+                                        <td>@item.Price</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

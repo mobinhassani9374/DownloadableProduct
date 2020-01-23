@@ -5,11 +5,36 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ایجاد درخواست تسویه حساب</h2>
-<form method="post">
-    @Html.AntiForgeryToken()
-    @Html.Partial("ErrorPartialView")
-    <p>قیمت : <input type="number" asp-for="Price" /></p>
-    <p><input type="submit" value="Submit" /></p>
-</form>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری من</a></li>
+            <li class="active">درخواست تسویه حساب</li>
+        </ol>
+    </div>
+</div>
 
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="login__title">درخواست تسویه حساب</div>
+                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید     
+                    در خواست تسویه حساب جدید ثبت کنید
+                </div>
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("ErrorPartialView")
+                    <div class="form-group">
+                        <label>  مبلغ مورد نظر خود را وارد کنید : </label>
+                        <input type="number" min="0" asp-for="Price" required class="form-control" placeholder="مبلغ مورد نظر به تومان">
+                    </div>                                       
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">ثبت درخواست</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
