@@ -68,6 +68,7 @@ namespace DownloadableProduct.UI
             services.AddScoped<PurchaseRepository>();
             services.AddScoped<CheckoutRepository>();
             services.AddScoped<UserService>();
+            services.AddScoped<AdminService>();
 
             services.AddMvc();
         }

@@ -1,5 +1,7 @@
 ﻿using DownloadableProduct.Domain.Entities;
 using DownloadableProduct.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace DownloadableProduct.DataAccess.Repositories
 {
@@ -8,6 +10,10 @@ namespace DownloadableProduct.DataAccess.Repositories
         public PurchaseRepository(AppDbContext context) : base(context)
         {
 
+        }
+        public Purchase GetWithDependency(int id)
+        {
+            return _context.Purchases.Include(c => c.Product).FirstOrDefault(c => c.Id == id);
         }
     }
 }

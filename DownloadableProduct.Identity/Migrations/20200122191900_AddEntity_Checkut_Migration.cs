@@ -9,7 +9,7 @@ namespace DownloadableProduct.Identity.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Checkout",
+                name: "Checkouts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -29,7 +29,7 @@ namespace DownloadableProduct.Identity.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Checkout");
+                name: "Checkouts");
         }
     }
 }
