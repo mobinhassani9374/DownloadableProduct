@@ -97,5 +97,9 @@ namespace DownloadableProduct.Services
             }
             return result;
         }
+        public ServiceResult<long> GetWallet(string userId)
+        {
+            return new ServiceResult<long>(true, _userRepository.GetWallet(userId));
+        }
     }
 }

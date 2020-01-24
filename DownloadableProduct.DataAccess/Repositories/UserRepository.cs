@@ -39,5 +39,9 @@ namespace DownloadableProduct.DataAccess.Repositories
         {
             _context.Update(user);
         }
+        public long GetWallet(string userId)
+        {
+            return _context.Users.FirstOrDefault(c => c.Id == userId)?.Wallet ?? 0;
+        }
     }
 }

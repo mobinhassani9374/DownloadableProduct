@@ -23,6 +23,9 @@
                 <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید     
                     در خواست تسویه حساب جدید ثبت کنید
                 </div>
+                <div class="alert alert-info">
+                    موجودی کیف پول شما : @ViewBag.Wallet تومان
+                </div>
                 <form method="post">
                     @Html.AntiForgeryToken()
                     @Html.Partial("ErrorPartialView")
