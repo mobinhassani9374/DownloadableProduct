@@ -23,9 +23,25 @@ namespace DownloadableProduct.DataAccess.Repositories
                 .Select(c => new UserDto
                 {
                     FullName = c.FullName,
-                    Id = c.Id
+                    Id = c.Id,
+                    Wallet = c.Wallet
                 })
                 .ToList();
+        }
+        public User GetEntity(string id)
+        {
+            return _context
+                .Users
+                .Where(c => c.Id == id)
+                .FirstOrDefault();
+        }
+        public void Update(User user)
+        {
+            _context.Update(user);
+        }
+        public long GetWallet(string userId)
+        {
+            return _context.Users.FirstOrDefault(c => c.Id == userId)?.Wallet ?? 0;
         }
     }
 }

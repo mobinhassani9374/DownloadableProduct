@@ -1,0 +1,30 @@
+﻿@using DownloadableProduct.Domain.Dto.Checkout
+@model List<CheckoutDto>
+@{
+    ViewData["Title"] = "Wating";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Wating</h2>
+<table>
+    <tr>
+        <td>#</td>
+        <td>مبلغ درخواستی</td>
+        <td>کاربر</td>
+        <td>موجودی کیف پول کاربر</td>
+        <td>بررسی</td>
+    </tr>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@item.Id</td>
+        <td>@item.Price</td>
+        <td>@item.User?.FullName</td>
+        <td>@item.User?.Wallet</td>
+        <td>
+            <a href="/Admin/Checkout/Check/@item.Id">بررسی</a>
+        </td>
+    </tr>
+    }
+</table>
+

@@ -19,6 +19,8 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
         public IActionResult Create()
         {
+            var wallet = _userService.GetWallet(UserId).Data;
+            ViewBag.Wallet = wallet;
             return View();
         }
 
