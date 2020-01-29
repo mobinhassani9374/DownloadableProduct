@@ -4,19 +4,6 @@
     ViewData["Title"] = "ایران گرافیک";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@foreach (var product in Model)
-{
-    <div>
-        <p><img src="~/Files/@product.SmallImage" style="width:150px;height:150px;" /></p>
-        <p>عنوان : @product.Title</p>
-        <p>قیمت : @product.Price</p>
-        <p>کاربر : @product.User?.FullName</p>
-        <p><a href="/Home/Detail/@product.Id">مشاهده و خرید</a></p>
-        <hr />
-    </div>
-}
-
 <div class="bread">
     <div class="container">
         <ol class="breadcrumb">
@@ -28,111 +15,23 @@
 
 <div class="product">
     <div class="container">
-        <div class="row">
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                
-            <div class="col-md-3 col-xs-12 col-sm-6">
-                <a href="#" class="product__item">
-                    <div class="product__item__img">
-                        <img src="~/static/img/product.jpg" class="img-responsive" />
-                    </div>
-                    <div class="product__item__title">عنوان محصول تستی که اگر بیشتر از دو خط بشه ماسخ نقظه
-                    میزاره</div>
-                    <div class="product__item__price">قیمت : <span>60000</span> تومان</div>
-                    <div class="product__item__btn">
-                        <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
-                    </div>
-                </a>
-            </div>                                          
+        <div class="row">                                                    
+            @foreach(var product in Model)
+            {
+                <div class="col-md-3 col-xs-12 col-sm-6">
+                    <a href="/Home/Detail/@product.Id" class="product__item">
+                        <div class="product__item__img">
+                            <img src="~/Files/@product.SmallImage" class="img-responsive" />
+                            @* @product.User?.FullName *@
+                        </div>
+                        <div class="product__item__title">@product.Title</div>
+                        <div class="product__item__price">قیمت : <span>@product.Price</span> تومان</div>
+                        <div class="product__item__btn">
+                            <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
+                        </div>
+                    </a>
+                </div> 
+            }                                         
         </div>
         <div class="row">
             <div class="container">
