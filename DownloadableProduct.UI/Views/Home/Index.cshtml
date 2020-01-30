@@ -20,7 +20,7 @@
             @foreach (var product in Model.Data)
             {
                 <div class="col-md-3 col-xs-12 col-sm-6">
-                    <a href="/Home/Detail/@product.Id" class="product__item">
+                    <div  class="product__item">
                         <div class="product__item__img">
                             <img src="~/Files/@product.SmallImage" class="img-responsive" />
                             @* @product.User?.FullName *@
@@ -28,9 +28,9 @@
                         <div class="product__item__title">@product.Title</div>
                         <div class="product__item__price">قیمت : <span>@product.Price</span> تومان</div>
                         <div class="product__item__btn">
-                            <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
+                            <a href="/Home/Detail/@product.Id" class="btn btn-block btn-success">مشاهده جزئیات و خرید </a>
                         </div>
-                    </a>
+                    </div>
                 </div>
             }
         </div>
