@@ -1,10 +1,13 @@
 ﻿using DownloadableProduct.DataAccess.Repositories;
 using DownloadableProduct.Domain.Dto.Checkout;
+using DownloadableProduct.Domain.Dto.Pagination;
+using DownloadableProduct.Domain.Dto.Product;
 using DownloadableProduct.Domain.Dto.User;
 using DownloadableProduct.Domain.Enums;
 using DownloadableProduct.Services.Mapping;
 using DownloadableProduct.Utillity;
 using System;
+using System.Linq;
 
 namespace DownloadableProduct.Services
 {
@@ -13,12 +16,15 @@ namespace DownloadableProduct.Services
         private readonly PurchaseRepository _purchaseRepository;
         private readonly CheckoutRepository _checkoutRepository;
         private readonly UserRepository _userRepository;
+        private readonly ProductRepository _productRepository;
         public UserService(PurchaseRepository purchaseRepository, CheckoutRepository checkoutRepository,
-            UserRepository userRepository)
+            UserRepository userRepository,
+            ProductRepository productRepository)
         {
             _purchaseRepository = purchaseRepository;
             _checkoutRepository = checkoutRepository;
             _userRepository = userRepository;
+            _productRepository = productRepository;
         }
         public ServiceResult<int> PurchaseRequest(ParchaseRequestDto dto)
         {
@@ -100,6 +106,13 @@ namespace DownloadableProduct.Services
         public ServiceResult<long> GetWallet(string userId)
         {
             return new ServiceResult<long>(true, _userRepository.GetWallet(userId));
+        }
+
+        public ServiceResult<PaginationDto<ProductDto>> GetAllConfirmed(int pageNumber, int pageSize)
+        {
+            var data = _productRepository.GetAllConfirmed(pageNumber, pageSize);
+            var users = _userRepository.Get(data.Data.Select(c => c.UserId).ToList());
+            return new ServiceResult<PaginationDto<ProductDto>>(true, data.ToDto().SetUser(users));
         }
     }
 }

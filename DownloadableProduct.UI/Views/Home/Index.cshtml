@@ -1,5 +1,6 @@
-﻿@using DownloadableProduct.Domain.Dto.Product
-@model List<ProductDto>
+﻿@using DownloadableProduct.Domain.Dto.Pagination
+@using DownloadableProduct.Domain.Dto.Product
+@model PaginationDto<ProductDto>
 @{
     ViewData["Title"] = "ایران گرافیک";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,8 +16,8 @@
 
 <div class="product">
     <div class="container">
-        <div class="row">                                                    
-            @foreach(var product in Model)
+        <div class="row">
+            @foreach (var product in Model.Data)
             {
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <a href="/Home/Detail/@product.Id" class="product__item">
@@ -30,31 +31,11 @@
                             <button class="btn btn-block btn-success">مشاهده جزئیات و خرید </button>
                         </div>
                     </a>
-                </div> 
-            }                                         
+                </div>
+            }
         </div>
-        <div class="row">
-            <div class="container">
-                <div class="paging">
-                    <a class="paging__link" href="#">1</a>
-                    <a class="paging__link active" href="#">2</a>
-                    <a class="paging__link" href="#">3</a>
-                    <a class="paging__link" href="#">4</a>
-                    <a class="paging__link" href="#">5</a>
-                    <a class="paging__link" href="#">6</a>
-                    <a class="paging__link" href="#">7</a>
-                </div>    
-            </div>
-        </div>
+        @Html.Partial("_Pagination", Model)
+
     </div>
 </div>
-
-<script>
-    $(function(){
-        toastr.success('با موفقیت انجام شد', {timeOut: 1000})
-         //toastr.error('سلام خوش آمدید')
-         //toastr.warning('سلام خوش آمدید')
-         //toastr.info('سلام خوش آمدید')
-    })
-</script>
 

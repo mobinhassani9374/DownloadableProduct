@@ -1,4 +1,6 @@
-﻿using DownloadableProduct.Domain.Dto.Product;
+﻿using DownloadableProduct.Domain.Dto.Pagination;
+using DownloadableProduct.Domain.Dto.Product;
+using DownloadableProduct.Domain.Dto.User;
 using DownloadableProduct.Domain.Entities;
 using System.Collections.Generic;
 
@@ -45,6 +47,18 @@ namespace DownloadableProduct.Services.Mapping
                 UserId = source.UserId,
                 UserUpoadImage = source.UserUpoadImage
             };
+        }
+        public static PaginationDto<ProductDto> ToDto(this PaginationDto<Product> source)
+        {
+            var result = new PaginationDto<ProductDto>();
+
+            result.Count = source.Count;
+            result.PageCount = source.PageCount;
+            result.PageNumber = source.PageNumber;
+            result.PageSize = source.PageSize;
+            result.Data = source.Data.ToDto();
+
+            return result;
         }
     }
 }

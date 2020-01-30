@@ -1,0 +1,22 @@
+﻿@using DownloadableProduct.Domain.Dto.Pagination
+@model PaginationDto
+@if (Model.PageCount > 1)
+{
+    <div class="row">
+        <div class="container">
+            <div class="paging">
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    if (i == Model.PageNumber)
+                    {
+                        <a class="paging__link active" href="?pageNumber=@(i)">@(i)</a>
+                    }
+                    else
+                    {
+                        <a class="paging__link" href="?pageNumber=@(i)">@(i)</a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+}

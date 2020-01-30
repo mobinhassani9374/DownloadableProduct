@@ -1,5 +1,6 @@
 ﻿using DownloadableProduct.Domain.Dto.User;
 using DownloadableProduct.Services;
+using DownloadableProduct.UI.Models.Product;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DownloadableProduct.UI.Controllers
@@ -14,9 +15,9 @@ namespace DownloadableProduct.UI.Controllers
             _productService = productService;
             _userService = userService;
         }
-        public IActionResult Index()
+        public IActionResult Index(ProductSearchViewModel model)
         {
-            var result = _productService.GetAllAvailable();
+            var result = _userService.GetAllConfirmed(model.PageNumber, model.PageSize);
             return View(result.Data);
         }
         public IActionResult Detail(int id)
