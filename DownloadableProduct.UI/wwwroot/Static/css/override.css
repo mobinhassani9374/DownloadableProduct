@@ -13,3 +13,16 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.panel-success>.panel-heading {
+    color: #fff;
+    background-color: #629c49eb;
+    border-color: #629c49eb;
+}
+
+.table thead tr th , .table tbody tr td {
+    text-align: center;
+    font-family: "MyriadArabic";
+    vertical-align: middle;
+    font-size: 15px;
+}

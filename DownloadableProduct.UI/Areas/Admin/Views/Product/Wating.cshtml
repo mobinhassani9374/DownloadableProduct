@@ -1,30 +1,55 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
 @model List<ProductDto>
 @{
-    ViewData["Title"] = "Wating";
+    ViewData["Title"] = "لیست محصولات در حال انتظار";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Wating</h2>
-<table>
-    <tr>
-        <td>#</td>
-        <td>عنوان</td>
-        <td>قیمت</td>
-        <td>کاربر</td>
-        <td>بررسی</td>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Id</td>
-            <td>@item.Title</td>
-            <td>@item.Price</td>
-            <td>@item.User?.FullName</td>
-            <td>
-                <a href="/Admin/Product/Check/@item.Id">بررسی</a>
-            </td>
-        </tr>
-    }
-</table>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/admin">پنل مدیریتی</a></li>
+            <li class="active">لیست محصولات در حال انتظار</li>
+        </ol>
+    </div>
+</div>
 
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="panel panel-success">
+                    <div class="panel-heading">لیست محصولات در حال انتظار</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>عنوان </th>
+                                    <th>قیمت</th>
+                                    <th>کاربر</th>
+                                    <th>بررسی</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Title</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.User?.FullName</td>
+                                        <td>
+                                            <a class="btn btn-success" href="/Admin/Product/Check/@item.Id">بررسی</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
