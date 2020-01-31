@@ -1,16 +1,42 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
 @model ProductDto
 @{
-    ViewData["Title"] = "Detail";
+    ViewData["Title"] = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detail</h2>
-@Html.Partial("ErrorPartialView")
-<p>Title : @Model.Title</p>
-<p>Description : @Model.Description</p>
-<p>Price : @Model.Price</p>
-<p>پشوند قایل : @Model.Extension</p>
-<p>ابعاد : @Model.Dimensions</p>
-<p><a href="/Home/PurchaseRequest/@Model.Id">خرید</a></p>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>         
+            <li class="active">@Model.Title</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="product__detail">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    @Html.Partial("ErrorPartialView")
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        <img src="" class="img-responsive img-thumbnail"/>
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <h1 class="product__detail__title">@Model.Title</h1>
+                        <div>قیمت : <span>@Model.Price</span> تومان</div>
+                        <div>پسوند فایل : @Model.Extension</div>
+                        <div>ابعاد : @Model.Dimensions</div>                    
+                        <div style="margin-top: 10px;">
+                            <a href="/Home/PurchaseRequest/@Model.Id" class="btn btn-success">خرید محصول</a>
+                        </div>
+                        <hr />
+                        <div>@Model.Description</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
