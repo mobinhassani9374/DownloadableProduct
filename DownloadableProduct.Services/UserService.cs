@@ -17,14 +17,17 @@ namespace DownloadableProduct.Services
         private readonly CheckoutRepository _checkoutRepository;
         private readonly UserRepository _userRepository;
         private readonly ProductRepository _productRepository;
+        private readonly PaymentRepository _paymentRepository;
         public UserService(PurchaseRepository purchaseRepository, CheckoutRepository checkoutRepository,
             UserRepository userRepository,
-            ProductRepository productRepository)
+            ProductRepository productRepository,
+            PaymentRepository paymentRepository)
         {
             _purchaseRepository = purchaseRepository;
             _checkoutRepository = checkoutRepository;
             _userRepository = userRepository;
             _productRepository = productRepository;
+            _paymentRepository = paymentRepository;
         }
         public ServiceResult<int> PurchaseRequest(ParchaseRequestDto dto)
         {
@@ -35,11 +38,19 @@ namespace DownloadableProduct.Services
             purchase.CreateDate = DateTime.Now;
             purchase.IsSuccess = false;
 
-            _purchaseRepository.Insert(purchase);
+            var purchaseID = _purchaseRepository.InsertWithSave(purchase);
 
-            if (_purchaseRepository.Save() > 0) result.Data = purchase.Id;
+            var paymentId = _paymentRepository.InsertWithSave(new Domain.Entities.Payment
+            {
+                CreateData = DateTime.Now,
+                Price = dto.Price,
+                Type = 1,
+                UserId = dto.UserId,
+                ValueId = purchaseID,
+                IsSuccess = false
+            });
 
-            else result.AddError("Error");
+            result.Data = paymentId;
 
             return result;
         }
@@ -60,23 +71,29 @@ namespace DownloadableProduct.Services
         {
             var result = new ServiceResult(true);
 
-            var purchase = _purchaseRepository.GetWithDependency(id);
+            var payment = _paymentRepository.Get(id);
 
-            if (purchase == null)
+            if (payment == null)
                 result.AddError("Error");
             else
             {
-                var user = _userRepository.GetEntity(purchase.UserId);
+                var user = _userRepository.GetEntity(payment.UserId);
+                var purchase = _purchaseRepository.Get(payment.ValueId);
 
-                purchase.IsSuccess = true;
-                purchase.PaymentDate = DateTime.Now;
+                payment.IsSuccess = true;
+                payment.ResponseDate = DateTime.Now;
 
                 // محاسبه سود کاربر
-                var profit = (purchase.Product.Price * 70) / 100;
+                var profit = (payment.Price * 70) / 100;
 
                 user.Wallet += profit;
 
+                //
+                purchase.IsSuccess = true;
+
                 _userRepository.Update(user);
+
+                _paymentRepository.Update(payment);
 
                 _purchaseRepository.Update(purchase);
 
@@ -88,18 +105,18 @@ namespace DownloadableProduct.Services
         {
             var result = new ServiceResult(true);
 
-            var purchase = _purchaseRepository.Get(id);
+            var payment = _paymentRepository.Get(id);
 
-            if (purchase == null)
+            if (payment == null)
                 result.AddError("Error");
             else
             {
-                purchase.IsSuccess = false;
-                purchase.PaymentDate = DateTime.Now;
+                payment.IsSuccess = false;
+                payment.ResponseDate = DateTime.Now;
 
-                _purchaseRepository.Update(purchase);
+                _paymentRepository.Update(payment);
 
-                _purchaseRepository.Save();
+                _paymentRepository.Save();
             }
             return result;
         }
@@ -113,6 +130,19 @@ namespace DownloadableProduct.Services
             var data = _productRepository.GetAllConfirmed(pageNumber, pageSize);
             var users = _userRepository.Get(data.Data.Select(c => c.UserId).ToList());
             return new ServiceResult<PaginationDto<ProductDto>>(true, data.ToDto().SetUser(users));
+        }
+        public ServiceResult<ProductDto> GetProduct(int id)
+        {
+            var result = new ServiceResult<ProductDto>(true);
+
+            var product = _productRepository.Get(id);
+
+            if (product == null)
+                result.AddError("EntityNotFoundByKey");
+
+            else result.Data = product.ToDto();
+
+            return result;
         }
     }
 }

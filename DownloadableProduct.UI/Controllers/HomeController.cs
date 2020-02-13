@@ -22,15 +22,23 @@ namespace DownloadableProduct.UI.Controllers
         }
         public IActionResult Detail(int id)
         {
-            var result = _productService.Get(id);
+            var result = _userService.GetProduct(id);
             return View(result.Data);
         }
         public IActionResult PurchaseRequest(int id)
         {
+            var product = _userService.GetProduct(id);
+
+            if (!product.Success)
+            {
+                Swal(false, "شناسه محصول مورد نظر معتبر نمی باشد");
+                return RedirectToAction(nameof(Index));
+            }
             var result = _userService.PurchaseRequest(new ParchaseRequestDto
             {
                 ProductId = id,
-                UserId = this.UserId
+                UserId = this.UserId,
+                Price = product.Data.Price
             });
 
             if (result.Success)

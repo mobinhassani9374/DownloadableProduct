@@ -18,11 +18,17 @@ namespace DownloadableProduct.DataAccess.Repositories
         {
             _context.Add(entity);
         }
+        public int InsertWithSave(TEntity entity)
+        {
+            _context.Add(entity);
+            _context.SaveChanges();
+            return entity.Id;
+        }
         public void Update(TEntity entity)
         {
             _context.Update(entity);
         }
-        public TEntity Get(int id)
+        public virtual TEntity Get(int id)
         {
             return _context.Set<TEntity>().FirstOrDefault(c => c.Id == id);
         }

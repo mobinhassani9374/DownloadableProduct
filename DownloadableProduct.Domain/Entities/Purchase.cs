@@ -9,6 +9,5 @@ namespace DownloadableProduct.Domain.Entities
         public string UserId { get; set; }
         public DateTime CreateDate { get; set; }
         public bool IsSuccess { get; set; }
-        public DateTime? PaymentDate { get; set; }
     }
 }

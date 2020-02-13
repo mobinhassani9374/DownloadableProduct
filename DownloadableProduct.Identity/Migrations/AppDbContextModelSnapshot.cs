@@ -39,7 +39,34 @@ namespace DownloadableProduct.Identity.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Checkout");
+                    b.ToTable("Checkouts");
+                });
+
+            modelBuilder.Entity("DownloadableProduct.Domain.Entities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateData");
+
+                    b.Property<bool>("IsSuccess");
+
+                    b.Property<long>("Price");
+
+                    b.Property<DateTime?>("ResponseDate");
+
+                    b.Property<int>("Type");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.Property<int>("ValueId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payments");
                 });
 
             modelBuilder.Entity("DownloadableProduct.Domain.Entities.Product", b =>
@@ -102,8 +129,6 @@ namespace DownloadableProduct.Identity.Migrations
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<bool>("IsSuccess");
-
-                    b.Property<DateTime?>("PaymentDate");
 
                     b.Property<int>("ProductId");
 

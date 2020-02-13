@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DownloadableProduct.Identity.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200112195846_AddEntity_Product_Migration")]
-    partial class AddEntity_Product_Migration
+    [Migration("20200213072023_DbInit")]
+    partial class DbInit
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,56 @@ namespace DownloadableProduct.Identity.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DownloadableProduct.Domain.Entities.Checkout", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<long>("Price");
+
+                    b.Property<DateTime?>("ResponseDate");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Checkouts");
+                });
+
+            modelBuilder.Entity("DownloadableProduct.Domain.Entities.Payment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateData");
+
+                    b.Property<bool>("IsSuccess");
+
+                    b.Property<long>("Price");
+
+                    b.Property<DateTime?>("ResponseDate");
+
+                    b.Property<int>("Type");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.Property<int>("ValueId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payments");
+                });
 
             modelBuilder.Entity("DownloadableProduct.Domain.Entities.Product", b =>
                 {
@@ -64,9 +114,35 @@ namespace DownloadableProduct.Identity.Migrations
                         .IsRequired()
                         .HasMaxLength(60);
 
+                    b.Property<string>("UserUpoadImage")
+                        .HasMaxLength(60);
+
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("DownloadableProduct.Domain.Entities.Purchase", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<bool>("IsSuccess");
+
+                    b.Property<int>("ProductId");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasMaxLength(60);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Purchases");
                 });
 
             modelBuilder.Entity("DownloadableProduct.Identity.DataModel.User", b =>
@@ -110,6 +186,8 @@ namespace DownloadableProduct.Identity.Migrations
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
+
+                    b.Property<long>("Wallet");
 
                     b.HasKey("Id");
 
@@ -232,6 +310,14 @@ namespace DownloadableProduct.Identity.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("DownloadableProduct.Domain.Entities.Purchase", b =>
+                {
+                    b.HasOne("DownloadableProduct.Domain.Entities.Product", "Product")
+                        .WithMany("Purchases")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

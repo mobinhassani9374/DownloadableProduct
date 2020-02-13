@@ -9,6 +9,7 @@ namespace DownloadableProduct.Domain.Entities
         public DateTime? ResponseDate { get; set; }
         public long Price { get; set; }
         public int Type { get; set; }
-        public int? PurchaseId { get; set; }
+        public int ValueId { get; set; }
+        public bool IsSuccess { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace DownloadableProduct.Identity
         public DbSet<Product> Products { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Checkout> Checkouts { get; set; }
+        public DbSet<Payment> Payments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -49,6 +50,11 @@ namespace DownloadableProduct.Identity
             var checkout = builder.Entity<Checkout>();
 
             checkout.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
+
+            var payment = builder.Entity<Payment>();
+
+            payment.HasKey(c => c.Id);
+            payment.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
         }
     }
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DownloadableProduct.Identity.Migrations
 {
-    public partial class dbInit : Migration
+    public partial class DbInit : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,11 +41,74 @@ namespace DownloadableProduct.Identity.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FullName = table.Column<string>(maxLength: 500, nullable: false)
+                    FullName = table.Column<string>(maxLength: 500, nullable: false),
+                    Wallet = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Checkouts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Price = table.Column<long>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ResponseDate = table.Column<DateTime>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Checkouts", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CreateData = table.Column<DateTime>(nullable: false),
+                    UserId = table.Column<string>(maxLength: 60, nullable: false),
+                    ResponseDate = table.Column<DateTime>(nullable: true),
+                    Price = table.Column<long>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    ValueId = table.Column<int>(nullable: false),
+                    IsSuccess = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(maxLength: 100, nullable: false),
+                    Description = table.Column<string>(maxLength: 500, nullable: false),
+                    Price = table.Column<long>(nullable: false),
+                    Image = table.Column<string>(maxLength: 60, nullable: true),
+                    SmallImage = table.Column<string>(maxLength: 60, nullable: true),
+                    File = table.Column<string>(maxLength: 60, nullable: true),
+                    Extension = table.Column<string>(maxLength: 100, nullable: true),
+                    CountView = table.Column<int>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    Ranking = table.Column<int>(nullable: false),
+                    Dimensions = table.Column<string>(maxLength: 300, nullable: true),
+                    UserUpoadImage = table.Column<string>(maxLength: 60, nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +217,28 @@ namespace DownloadableProduct.Identity.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Purchases",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    ProductId = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(maxLength: 60, nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    IsSuccess = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Purchases", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Purchases_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +277,11 @@ namespace DownloadableProduct.Identity.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Purchases_ProductId",
+                table: "Purchases",
+                column: "ProductId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +302,22 @@ namespace DownloadableProduct.Identity.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Checkouts");
+
+            migrationBuilder.DropTable(
+                name: "Payments");
+
+            migrationBuilder.DropTable(
+                name: "Purchases");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Products");
         }
     }
 }

@@ -20,6 +20,12 @@ namespace DownloadableProduct.UI.Controllers
                 ModelState.AddModelError("", errors.GetValueOrDefault(c.Code));
             });
         }
+        protected void Swal(bool isSuccess, string message)
+        {
+            TempData.Clear();
+            TempData.Add("serviceResult.Message", message);
+            TempData.Add("serviceResult.Success", isSuccess);
+        }
         protected string FullName
         {
             get
@@ -55,7 +61,7 @@ namespace DownloadableProduct.UI.Controllers
             errors.Add("ExtensionLengthHaveNot100Character", "پسوند نباید بیش از 100 کارکتر داشته باشد");
             errors.Add("ImageIsNull", "عکسی را انتخاب نکرده اید");
             errors.Add("EntityNotFoundByKey", "داده ای با شناسه ارسالی یافت نشد");
-            errors.Add("DuplicateUserName","شماره همراه وارد شده تکراری است");
+            errors.Add("DuplicateUserName", "شماره همراه وارد شده تکراری است");
         }
     }
 }
