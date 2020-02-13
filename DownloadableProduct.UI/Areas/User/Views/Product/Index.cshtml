@@ -51,19 +51,19 @@
                                             <td>
                                                 @if (item.Status == ProductStatus.Confirmed)
                                                 {
-                                                    <span>تایید شده</span>
+                                                    <span class="label label-success">تایید شده</span>
                                                 }
                                                 else if (item.Status == ProductStatus.Production)
                                                 {
-                                                    <span>درحال تکمیل اطلاعات توسط شما</span>
+                                                    <span class="label label-warning">درحال تکمیل اطلاعات توسط شما</span>
                                                 }
                                                 else if (item.Status == ProductStatus.Rejected)
                                                 {
-                                                    <span>رد شده</span>
+                                                    <span class="label label-danger">رد شده</span>
                                                 }
                                                 else
                                                 {
-                                                    <span>درحال بررسی اطلاعات توسط مدیر سایت</span>
+                                                    <span class="label label-default">درحال بررسی اطلاعات توسط مدیر سایت</span>
                                                 }
                                             </td>
                                             <td>@item.Price.ToPersianNumbers("#,##") تومان</td>
