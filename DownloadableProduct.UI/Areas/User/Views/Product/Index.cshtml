@@ -1,8 +1,11 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
+@using DNTPersianUtils.Core
+@using DownloadableProduct.Domain.Enums
 @model List<ProductDto>
 @{
     ViewData["Title"] = "لیست محصولات من";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
 <div class="bread">
@@ -10,7 +13,7 @@
         <ol class="breadcrumb">
             <li><a href="/">ایران گرافیک</a></li>
             <li><a href="/User">ناحیه کاربری</a></li>
-            <li class="active">لیست محصولات من</li>
+            <li class="active">لیست طرح های من</li>
         </ol>
     </div>
 </div>
@@ -20,27 +23,54 @@
         <div class="row">
             <div class="table-responsive">
                 <div class="panel panel-success">
-                    <div class="panel-heading">لیست محصولات من</div>
+                    <div class="panel-heading">لیست طرح های من</div>
                     <div class="panel-body">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>ردیف</th>
                                     <th>عنوان </th>
                                     <th>وضعیت</th>
                                     <th>قیمت</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @if (Model.Count == 0)
                                 {
                                     <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.Status</td>
-                                        <td>@item.Price</td>
+                                        <td colspan="4">تاکنون طرحی بارگذاری نکرده اید</td>
                                     </tr>
                                 }
+                                else
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@((i++).ToPersianNumbers())</td>
+                                            <td>@item.Title</td>
+                                            <td>
+                                                @if (item.Status == ProductStatus.Confirmed)
+                                                {
+                                                    <span>تایید شده</span>
+                                                }
+                                                else if (item.Status == ProductStatus.Production)
+                                                {
+                                                    <span>درحال تکمیل اطلاعات توسط شما</span>
+                                                }
+                                                else if (item.Status == ProductStatus.Rejected)
+                                                {
+                                                    <span>رد شده</span>
+                                                }
+                                                else
+                                                {
+                                                    <span>درحال بررسی اطلاعات توسط مدیر سایت</span>
+                                                }
+                                            </td>
+                                            <td>@item.Price.ToPersianNumbers("#,##") تومان</td>
+                                        </tr>
+                                    }
+                                }
+
                             </tbody>
                         </table>
                     </div>
