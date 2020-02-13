@@ -1,30 +1,55 @@
 ﻿@using DownloadableProduct.Domain.Dto.Checkout
 @model List<CheckoutDto>
 @{
-    ViewData["Title"] = "Wating";
+    ViewData["Title"] = "درخواست های تسویه حساب";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Wating</h2>
-<table>
-    <tr>
-        <td>#</td>
-        <td>مبلغ درخواستی</td>
-        <td>کاربر</td>
-        <td>موجودی کیف پول کاربر</td>
-        <td>بررسی</td>
-    </tr>
-    @foreach (var item in Model)
-    {
-    <tr>
-        <td>@item.Id</td>
-        <td>@item.Price</td>
-        <td>@item.User?.FullName</td>
-        <td>@item.User?.Wallet</td>
-        <td>
-            <a href="/Admin/Checkout/Check/@item.Id">بررسی</a>
-        </td>
-    </tr>
-    }
-</table>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/User">پنل مدیریتی</a></li>
+            <li class="active">درخواست های تسویه حساب</li>
+        </ol>
+    </div>
+</div>
 
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="panel panel-success">
+                    <div class="panel-heading">درخواست های تسویه حساب</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>مبلغ درخواستی</th>
+                                    <th>کاربر</th>
+                                    <th>موجودی کیف پول کاربر</th>
+                                    <th>بررسی</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.User?.FullName</td>
+                                        <td>@item.User?.Wallet</td>
+                                        <td>
+                                            <a class="btn btn-success" href="/Admin/Checkout/Check/@item.Id">بررسی</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
