@@ -1,9 +1,19 @@
+.product .product__item {
+    border-radius: 0;
+}
+
 .product .product__item .product__item__img {
     background-color: #ececec;
+    border-radius: 0px !important;
 }
 
 .product .product__item .product__item__img img {
-    height: 150px;
+    height: 200px;
+    border-radius: 0px !important;
+}
+
+.product .product__item .product__item__btn .btn {
+    border-radius: 0px !important;
 }
 
 .product .product__item .product__item__title {
