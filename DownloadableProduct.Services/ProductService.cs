@@ -78,6 +78,7 @@ namespace DownloadableProduct.Services
                 result.AddError("EntityNotFoundByKey");
 
             product.UserUpoadImage = dto.ImageName;
+            product.UserUpoadImageDate = DateTime.Now;
 
             _repository.Update(product);
 
@@ -131,6 +132,7 @@ namespace DownloadableProduct.Services
 
             product.File = dto.FileName;
             product.Status = ProductStatus.Wating;
+            product.UploadFileDate = DateTime.Now;
 
             _repository.Update(product);
 

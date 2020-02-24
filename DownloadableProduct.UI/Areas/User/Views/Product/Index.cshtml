@@ -32,13 +32,15 @@
                                     <th>عنوان </th>
                                     <th>وضعیت</th>
                                     <th>قیمت</th>
+                                    <th>تکمیل اطلاعات</th>
+                                    <th>مشاهده جزییات</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if (Model.Count == 0)
                                 {
                                     <tr>
-                                        <td colspan="4">تاکنون طرحی بارگذاری نکرده اید</td>
+                                        <td colspan="6">تاکنون طرحی بارگذاری نکرده اید</td>
                                     </tr>
                                 }
                                 else
@@ -67,6 +69,26 @@
                                                 }
                                             </td>
                                             <td>@item.Price.ToPersianNumbers("#,##") تومان</td>
+                                            <td>
+                                                @if (item.Status == ProductStatus.Production)
+                                                {
+                                                    if (string.IsNullOrEmpty(item.UserUpoadImage))
+                                                    {
+                                                        <a href="/User/Product/SetImage/@(item.Id)" class="btn btn-warning">تکمیل اطلاعات</a>
+                                                    }
+                                                    else
+                                                    {
+                                                        <a href="/User/Product/SetFile/@(item.Id)" class="btn btn-warning">تکمیل اطلاعات</a>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <a href="#" class="btn btn-warning disabled">تکمیل اطلاعات</a>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="/User/Product/Detail/@(item.Id)" class="btn btn-success">مشاهده</a>
+                                            </td>
                                         </tr>
                                     }
                                 }

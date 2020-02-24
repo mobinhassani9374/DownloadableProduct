@@ -120,5 +120,19 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             return View(model);
         }
+
+        public IActionResult EditBasic(int id)
+        {
+            var product = _productService.Get(id);
+            return View(product.Data.ToViewModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public IActionResult EditBasic(ProductUpdateViewModel model)
+        {
+            
+
+            return View(model);
+        }
     }
 }

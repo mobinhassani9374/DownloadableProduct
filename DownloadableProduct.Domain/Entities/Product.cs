@@ -14,6 +14,9 @@ namespace DownloadableProduct.Domain.Entities
         public string SmallImage { get; set; }
         public string File { get; set; }
         public string Extension { get; set; }
+        public int CountBuy { get; set; }
+        public DateTime? UserUpoadImageDate { get; set; }
+        public DateTime? UploadFileDate { get; set; }
         public int CountView { get; set; }
         public DateTime CreateDate { get; set; }
         public int Ranking { get; set; }

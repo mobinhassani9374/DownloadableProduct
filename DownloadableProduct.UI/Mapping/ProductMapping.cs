@@ -17,5 +17,18 @@ namespace DownloadableProduct.UI.Mapping
                 UserId = userId
             };
         }
+
+        public static ProductUpdateViewModel ToViewModel(this ProductDto source)
+        {
+            return new ProductUpdateViewModel
+            {
+                Description = source.Description,
+                Dimensions = source.Dimensions,
+                Extension = source.Extension,
+                Id = source.Id,
+                Price = source.Price,
+                Title = source.Title
+            };
+        }
     }
 }

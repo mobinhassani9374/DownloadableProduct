@@ -1,5 +1,5 @@
 ﻿@using DownloadableProduct.UI.Models.Product
-@model ProductCreateViewModel
+@model ProductUpdateViewModel
 @{
     ViewData["Title"] = "ایجاد طرح جدید";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -43,6 +43,7 @@
                     </div>                    
                 </div>
                 <form method="post">
+                    <input type="hidden" asp-for="Id"/>
                     @Html.AntiForgeryToken()
                     @Html.Partial("ErrorPartialView")
                     <div class="form-group">
