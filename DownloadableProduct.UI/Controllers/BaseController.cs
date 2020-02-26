@@ -26,6 +26,10 @@ namespace DownloadableProduct.UI.Controllers
             TempData.Add("serviceResult.Message", message);
             TempData.Add("serviceResult.Success", isSuccess);
         }
+        protected void Swal(bool isSuccess, string message, bool messageIsCode)
+        {
+            Swal(isSuccess,errors.GetValueOrDefault(message));
+        }
         protected string FullName
         {
             get
@@ -62,6 +66,9 @@ namespace DownloadableProduct.UI.Controllers
             errors.Add("ImageIsNull", "عکسی را انتخاب نکرده اید");
             errors.Add("EntityNotFoundByKey", "داده ای با شناسه ارسالی یافت نشد");
             errors.Add("DuplicateUserName", "شماره همراه وارد شده تکراری است");
+            errors.Add("ProductNotFound", "طرحی یافت نشد");
+            errors.Add("ProductNotProduction", "اجازه ویرایش طرح را ندارید");
+            errors.Add("ProductNotForUser", "طرح متعلق به شما نیست");
         }
     }
 }

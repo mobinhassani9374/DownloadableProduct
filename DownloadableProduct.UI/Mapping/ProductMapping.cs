@@ -30,5 +30,17 @@ namespace DownloadableProduct.UI.Mapping
                 Title = source.Title
             };
         }
+        public static ProductUpdateDto ToDto(this ProductUpdateViewModel source)
+        {
+            return new ProductUpdateDto
+            {
+                Title = source.Title,
+                Description = source.Description,
+                Price = source.Price,
+                Id = source.Id,
+                Extension = source.Extension,
+                Dimensions = source.Dimensions
+            };
+        }
     }
 }

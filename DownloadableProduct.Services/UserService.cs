@@ -144,5 +144,145 @@ namespace DownloadableProduct.Services
 
             return result;
         }
+        public ServiceResult UpdateProduct(ProductUpdateDto dto, string currentUserId)
+        {
+            var result = UpdateProductValidation(dto);
+
+            var product = _productRepository.Get(dto.Id);
+
+            if (product == null)
+                result.AddError("ProductNotFound");
+            else
+            {
+                if (currentUserId == product.UserId)
+                {
+                    if (product.Status == ProductStatus.Production)
+                    {
+                        product.Description = dto.Description;
+                        product.Dimensions = dto.Dimensions;
+                        product.Extension = dto.Extension;
+                        product.Price = dto.Price;
+                        product.Title = dto.Title;
+                        _productRepository.Update(product);
+                        if (_productRepository.Save() == 0)
+                            result.AddError("Error");
+                    }
+                    else
+                        result.AddError("ProductNotProduction");
+                }
+                else result.AddError("ProductNotForUser");
+            }
+
+            return result;
+        }
+        private ServiceResult UpdateProductValidation(ProductUpdateDto dto)
+        {
+            var result = new ServiceResult(true);
+
+            if (string.IsNullOrEmpty(dto.Title))
+                result.AddError("TitleIsRequired");
+
+            if (string.IsNullOrEmpty(dto.Description))
+                result.AddError("DescriptionIsRequired");
+
+            if (!string.IsNullOrEmpty(dto.Title) && dto.Title.Length > 100)
+                result.AddError("TitleLengthHaveNot100Character");
+
+            if (!string.IsNullOrEmpty(dto.Description) && dto.Description.Length > 500)
+                result.AddError("DescriptionLengthHaveNot500Character");
+
+            if (!string.IsNullOrEmpty(dto.Dimensions) && dto.Dimensions.Length > 300)
+                result.AddError("DimensionsLengthHaveNot300Character");
+
+            if (!string.IsNullOrEmpty(dto.Extension) && dto.Extension.Length > 100)
+                result.AddError("ExtensionLengthHaveNot100Character");
+
+            return result;
+        }
+
+        public ServiceResult<int> CreateProdut(ProductCreateDto dto)
+        {
+            var result = CreateProductValidation(dto);
+
+            var entity = dto.ToEntity();
+
+            if (result.Success)
+            {
+                entity.CountView = 0;
+                entity.CreateDate = DateTime.Now;
+                entity.Ranking = 0;
+                entity.Status = Domain.Enums.ProductStatus.Production;
+
+                _productRepository.Insert(entity);
+
+                if (_productRepository.Save() > 0)
+                    result.Data = entity.Id;
+                else
+                    result.AddError("Error");
+            }
+
+            return result;
+        }
+        private ServiceResult<int> CreateProductValidation(ProductCreateDto product)
+        {
+            var result = new ServiceResult<int>(true);
+
+            if (string.IsNullOrEmpty(product.Title))
+                result.AddError("TitleIsRequired");
+
+            if (string.IsNullOrEmpty(product.Description))
+                result.AddError("DescriptionIsRequired");
+
+            if (!string.IsNullOrEmpty(product.Title) && product.Title.Length > 100)
+                result.AddError("TitleLengthHaveNot100Character");
+
+            if (!string.IsNullOrEmpty(product.Description) && product.Description.Length > 500)
+                result.AddError("DescriptionLengthHaveNot500Character");
+
+            if (!string.IsNullOrEmpty(product.Dimensions) && product.Dimensions.Length > 300)
+                result.AddError("DimensionsLengthHaveNot300Character");
+
+            if (!string.IsNullOrEmpty(product.Extension) && product.Extension.Length > 100)
+                result.AddError("ExtensionLengthHaveNot100Character");
+
+            return result;
+        }
+        public ServiceResult SetUserUpoadImage(SetImageDto dto)
+        {
+            var result = new ServiceResult(true);
+
+            var product = _productRepository.Get(dto.Id);
+
+            if (product == null)
+                result.AddError("EntityNotFoundByKey");
+
+            product.UserUpoadImage = dto.ImageName;
+            product.UserUpoadImageDate = DateTime.Now;
+
+            _productRepository.Update(product);
+
+            if (_productRepository.Save() == 0) result.AddError("Error");
+
+            return result;
+        }
+        public ServiceResult SetFile(SetFileDto dto)
+        {
+            var result = new ServiceResult(true);
+
+            var product = _productRepository.Get(dto.Id);
+
+            if (product == null)
+                result.AddError("EntityNotFoundByKey");
+
+            product.File = dto.FileName;
+            product.Status = ProductStatus.Wating;
+            product.UploadFileDate = DateTime.Now;
+
+            _productRepository.Update(product);
+
+            if (_productRepository.Save() == 0) result.AddError("Error");
+
+            return result;
+        }
     }
 }

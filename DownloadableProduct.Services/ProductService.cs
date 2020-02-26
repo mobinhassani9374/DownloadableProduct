@@ -21,71 +21,8 @@ namespace DownloadableProduct.Services
             _repository = repository;
             _userRepository = userRepository;
         }
-        public ServiceResult<int> Create(ProductCreateDto dto)
-        {
-            var entity = dto.ToEntity();
-
-            var result = CreateValidation(entity);
-
-            if (result.Success)
-            {
-                entity.CountView = 0;
-                entity.CreateDate = DateTime.Now;
-                entity.Ranking = 0;
-                entity.Status = Domain.Enums.ProductStatus.Production;
-
-                _repository.Insert(entity);
-
-                if (_repository.Save() > 0)
-                    result.Data = entity.Id;
-                else
-                    result.AddError("Error");
-            }
-
-            return result;
-        }
-        private ServiceResult<int> CreateValidation(Product product)
-        {
-            var result = new ServiceResult<int>(true);
-
-            if (string.IsNullOrEmpty(product.Title))
-                result.AddError("TitleIsRequired");
-
-            if (string.IsNullOrEmpty(product.Description))
-                result.AddError("DescriptionIsRequired");
-
-            if (!string.IsNullOrEmpty(product.Title) && product.Title.Length > 100)
-                result.AddError("TitleLengthHaveNot100Character");
-
-            if (!string.IsNullOrEmpty(product.Description) && product.Description.Length > 500)
-                result.AddError("DescriptionLengthHaveNot500Character");
-
-            if (!string.IsNullOrEmpty(product.Dimensions) && product.Dimensions.Length > 300)
-                result.AddError("DimensionsLengthHaveNot300Character");
-
-            if (!string.IsNullOrEmpty(product.Extension) && product.Extension.Length > 100)
-                result.AddError("ExtensionLengthHaveNot100Character");
-
-            return result;
-        }
-        public ServiceResult SetUserUpoadImage(SetImageDto dto)
-        {
-            var result = new ServiceResult(true);
-
-            var product = _repository.Get(dto.Id);
-
-            if (product == null)
-                result.AddError("EntityNotFoundByKey");
-
-            product.UserUpoadImage = dto.ImageName;
-            product.UserUpoadImageDate = DateTime.Now;
-
-            _repository.Update(product);
-
-            if (_repository.Save() == 0) result.AddError("Error");
-
-            return result;
-        }
+        
+        
         public ServiceResult SetSmallImage(SetImageDto dto)
         {
             var result = new ServiceResult(true);
@@ -114,25 +51,6 @@ namespace DownloadableProduct.Services
 
             product.Image = dto.ImageName;
             product.Status = ProductStatus.Confirmed;
-
-            _repository.Update(product);
-
-            if (_repository.Save() == 0) result.AddError("Error");
-
-            return result;
-        }
-        public ServiceResult SetFile(SetFileDto dto)
-        {
-            var result = new ServiceResult(true);
-
-            var product = _repository.Get(dto.Id);
-
-            if (product == null)
-                result.AddError("EntityNotFoundByKey");
-
-            product.File = dto.FileName;
-            product.Status = ProductStatus.Wating;
-            product.UploadFileDate = DateTime.Now;
 
             _repository.Update(product);
 

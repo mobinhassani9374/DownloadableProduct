@@ -7,6 +7,7 @@ using DownloadableProduct.Services;
 using DownloadableProduct.UI.Helpers;
 using DownloadableProduct.UI.Mapping;
 using DownloadableProduct.UI.Models.Product;
+using DownloadableProduct.Utillity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DownloadableProduct.UI.Areas.User.Controllers
@@ -15,11 +16,14 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
     {
         private readonly ProductService _productService;
         private readonly FileHelper _fileHelper;
+        private readonly UserService _userService;
         public ProductController(ProductService productService,
-            FileHelper fileHelper)
+            FileHelper fileHelper,
+            UserService userService)
         {
             _productService = productService;
             _fileHelper = fileHelper;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -37,7 +41,7 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         [ValidateAntiForgeryToken()]
         public IActionResult Create(ProductCreateViewModel model)
         {
-            var result = _productService.Create(model.ToDto(this.UserId));
+            var result = _userService.CreateProdut(model.ToDto(this.UserId));
 
             if (result.Success)
             {
@@ -51,7 +55,15 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
         public IActionResult SetImage(int id)
         {
+            var validation = Validation(id);
+            if (!validation.Success)
+            {
+                Swal(false, validation.Errors.First().Code, true);
+                return RedirectPermanent("/");
+            }
+
             ViewBag.Id = id;
+            ViewBag.UserUpoadImage = validation.Data.UserUpoadImage;
             return View();
         }
 
@@ -63,11 +75,12 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             if (uploadResult.Success)
             {
-                var result = _productService
+                var result = _userService
                     .SetUserUpoadImage(new SetImageDto(model.Id, uploadResult.Data));
 
                 if (result.Success)
                 {
+                    Swal(true, "عکس طرح با موفقیت آپلود شد");
                     return RedirectToAction(nameof(SetFile), new { id = model.Id });
                 }
 
@@ -87,6 +100,13 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
         public IActionResult SetFile(int id)
         {
+            var validation = Validation(id);
+            if (!validation.Success)
+            {
+                Swal(false, validation.Errors.First().Code, true);
+                return RedirectPermanent("/");
+            }
+
             ViewBag.Id = id;
             return View();
         }
@@ -99,11 +119,12 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             if (uploadResult.Success)
             {
-                var result = _productService
+                var result = _userService
                     .SetFile(new SetFileDto(model.Id, uploadResult.Data));
 
                 if (result.Success)
                 {
+                    Swal(true, "فایل طرح با موفقیت آپلود شد");
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -123,16 +144,49 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
         public IActionResult EditBasic(int id)
         {
-            var product = _productService.Get(id);
-            return View(product.Data.ToViewModel());
+            var validation = Validation(id);
+            if (!validation.Success)
+            {
+                Swal(false, validation.Errors.First().Code, true);
+                return RedirectPermanent("/");
+            }
+            return View(validation.Data.ToViewModel());
         }
         [HttpPost]
         [ValidateAntiForgeryToken()]
         public IActionResult EditBasic(ProductUpdateViewModel model)
         {
-            
+            var result = _userService.UpdateProduct(model.ToDto(), this.UserId);
 
+            if (result.Success)
+            {
+                Swal(true, "عملیات با موفقیت انجام شد");
+                return RedirectToAction(nameof(SetImage), new { id = model.Id });
+            }
+
+            AddErrors(result);
             return View(model);
+        }
+        private ServiceResult<ProductDto> Validation(int id)
+        {
+            var result = new ServiceResult<ProductDto>(true);
+            var producut = _userService.GetProduct(id);
+            if (producut.Data == null)
+                result.AddError("ProductNotFound");
+            else
+            {
+                if (producut.Data.Status == Domain.Enums.ProductStatus.Production)
+                {
+                    if (producut.Data.UserId != UserId)
+                        result.AddError("ProductNotForUser");
+                }
+                else
+                {
+                    result.AddError("ProductNotProduction");
+                }
+            }
+            result.Data = producut.Data;
+            return result;
         }
     }
 }

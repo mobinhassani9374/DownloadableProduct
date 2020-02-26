@@ -1,7 +1,7 @@
 ﻿@using DownloadableProduct.UI.Models.Product
 @model SetImageViewModel
 @{
-    ViewData["Title"] = "ایجاد محصول جدید (عکس)";
+    ViewData["Title"] = "انتخاب عکس طرح";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li><a href="/">ایران گرافیک</a></li>
             <li><a href="/User">ناحیه کاربری من</a></li>
-            <li class="active">ایجاد محصول جدید</li>
+            <li class="active">انتخاب عکس طرح</li>
         </ol>
     </div>
 </div>
@@ -19,13 +19,13 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="login__title">ایجاد محصول جدید</div>
-                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید محصول جدید ایجاد کنید 
-                    کنید
+                <div class="login__title">انتخاب عکس طرح</div>
+                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید عکس طرح را انتخاب کنید 
+                    
                 </div>
                 <div class="wizard-progress">                   
                     <div class="step complete">
-                         اطلاعات پایه
+                         ویرایش اطلاعات پایه
                         <div class="node"></div>
                     </div>
                     <div class="step in-progress">
@@ -33,7 +33,7 @@
                         <div class="node"></div>
                     </div>
                     <div class="step">
-                         انتخاب فایل محصول
+                         انتخاب فایل طرح
                         <div class="node"></div>
                     </div>
                     <div class="step">
@@ -41,26 +41,31 @@
                         <div class="node"></div>
                     </div>                    
                 </div>
-                <form method="post" enctype="multipart/form-data">   
+                <form method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     @Html.Partial("ErrorPartialView")
-                    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />                
+                    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />
                     <div class="form-group">
-                        <div class="alert alert-warning">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                            عکس آپلودی برای محصول باید کمتر از 500 کیلو بایت باشد
+                        <div class="alert alert-info">
+                            عکس آپلودی برای طرح باید کمتر از 500 کیلو بایت باشد
                         </div>
-                    </div>                                      
+                    </div>
+                    @if (!string.IsNullOrEmpty((string)ViewBag.UserUpoadImage))
+                    {
+                        <div class="form-group">
+                            <img src="~/Files/@ViewBag.UserUpoadImage"/>
+                        </div>
+                    }
                     <div class="form-group">
-                        <label> عکس محصول را وارد کنید : </label>
+                        <label> عکس طرح را انتخاب کنید : </label>
                         <input type="file" required name="@Html.NameFor(c=>c.Image)" class="form-control" />
-                    </div>                                      
+                    </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block">تایید و مرحله بعد</button>                        
+                        <button type="submit" class="btn btn-success btn-block">تایید و مرحله بعد</button>
                     </div>
                     @* <div class="form-group">
-                        <a type="button" href="/User/Product/Create" class="btn btn-default"><i class="fa fa-arrow-right"></i> مرحله قبل</a>                       
-                    </div> *@
+            <a type="button" href="/User/Product/Create" class="btn btn-default"><i class="fa fa-arrow-right"></i> مرحله قبل</a>
+        </div> *@
                 </form>
             </div>
         </div>

@@ -3,7 +3,7 @@
 @using DownloadableProduct.Domain.Enums
 @model List<ProductDto>
 @{
-    ViewData["Title"] = "لیست محصولات من";
+    ViewData["Title"] = "لیست طرح های من";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int i = 1;
 }
@@ -32,7 +32,7 @@
                                     <th>عنوان </th>
                                     <th>وضعیت</th>
                                     <th>قیمت</th>
-                                    <th>تکمیل اطلاعات</th>
+                                    <th>تکمیل و ویرایش اطلاعات</th>
                                     <th>مشاهده جزییات</th>
                                 </tr>
                             </thead>
@@ -72,18 +72,11 @@
                                             <td>
                                                 @if (item.Status == ProductStatus.Production)
                                                 {
-                                                    if (string.IsNullOrEmpty(item.UserUpoadImage))
-                                                    {
-                                                        <a href="/User/Product/SetImage/@(item.Id)" class="btn btn-warning">تکمیل اطلاعات</a>
-                                                    }
-                                                    else
-                                                    {
-                                                        <a href="/User/Product/SetFile/@(item.Id)" class="btn btn-warning">تکمیل اطلاعات</a>
-                                                    }
+                                                <a href="/User/Product/EditBasic/@(item.Id)" class="btn btn-warning">تکمیل و ویرایش </a>
                                                 }
                                                 else
                                                 {
-                                                    <a href="#" class="btn btn-warning disabled">تکمیل اطلاعات</a>
+                                                <a href="#" class="btn btn-warning disabled">تکمیل و ویرایش </a>
                                                 }
                                             </td>
                                             <td>
