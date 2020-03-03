@@ -15,6 +15,7 @@ namespace DownloadableProduct.Domain.Dto.Product
         public string File { get; set; }
         public string Extension { get; set; }
         public int CountView { get; set; }
+        public int CountBuy { get; set; }
         public DateTime CreateDate { get; set; }
         public int Ranking { get; set; }
         public string Dimensions { get; set; }

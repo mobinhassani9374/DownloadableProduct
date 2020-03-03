@@ -68,15 +68,25 @@
                                                     <span class="label label-default">درحال بررسی اطلاعات توسط مدیر سایت</span>
                                                 }
                                             </td>
-                                            <td>@item.Price.ToPersianNumbers("#,##") تومان</td>
+                                            <td>
+                                                @if (item.Price == 0)
+                                                {
+                                                    <span> رایگان</span>
+                                                }
+                                                else
+
+                                                {
+                                                    <span>@item.Price.ToPersianNumbers("#,##")تومان</span>
+                                                }
+                                            </td>
                                             <td>
                                                 @if (item.Status == ProductStatus.Production)
                                                 {
-                                                <a href="/User/Product/EditBasic/@(item.Id)" class="btn btn-warning">تکمیل و ویرایش </a>
+                                                    <a href="/User/Product/EditBasic/@(item.Id)" class="btn btn-warning">تکمیل و ویرایش </a>
                                                 }
                                                 else
                                                 {
-                                                <a href="#" class="btn btn-warning disabled">تکمیل و ویرایش </a>
+                                                    <a href="#" class="btn btn-warning disabled">تکمیل و ویرایش </a>
                                                 }
                                             </td>
                                             <td>

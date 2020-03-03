@@ -45,7 +45,8 @@ namespace DownloadableProduct.Services.Mapping
                 Status = source.Status,
                 Title = source.Title,
                 UserId = source.UserId,
-                UserUpoadImage = source.UserUpoadImage
+                UserUpoadImage = source.UserUpoadImage,
+                CountBuy = source.CountBuy
             };
         }
         public static PaginationDto<ProductDto> ToDto(this PaginationDto<Product> source)

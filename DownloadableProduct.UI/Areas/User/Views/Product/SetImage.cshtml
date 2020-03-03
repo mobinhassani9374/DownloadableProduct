@@ -52,8 +52,7 @@
                     </div>
                     @if (!string.IsNullOrEmpty((string)ViewBag.UserUpoadImage))
                     {
-                        <div class="form-group">
-                            <img src="~/Files/@ViewBag.UserUpoadImage"/>
+                        <div class="form-group"><img src="~/Files/@ViewBag.UserUpoadImage" class="img-responsive img-thumbnail" />
                         </div>
                     }
                     <div class="form-group">

@@ -8,6 +8,7 @@ using DownloadableProduct.UI.Helpers;
 using DownloadableProduct.UI.Mapping;
 using DownloadableProduct.UI.Models.Product;
 using DownloadableProduct.Utillity;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DownloadableProduct.UI.Areas.User.Controllers
@@ -17,13 +18,16 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         private readonly ProductService _productService;
         private readonly FileHelper _fileHelper;
         private readonly UserService _userService;
+        private readonly IHostingEnvironment _hostingEnvironment;
         public ProductController(ProductService productService,
             FileHelper fileHelper,
-            UserService userService)
+            UserService userService,
+            IHostingEnvironment hostingEnvironment)
         {
             _productService = productService;
             _fileHelper = fileHelper;
             _userService = userService;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public IActionResult Index()
@@ -45,6 +49,7 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             if (result.Success)
             {
+                Swal(true, "عملیات با موفقیت انجام شد");
                 return RedirectToAction(nameof(SetImage), new { id = result.Data });
             }
 
@@ -120,7 +125,7 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
             if (uploadResult.Success)
             {
                 var result = _userService
-                    .SetFile(new SetFileDto(model.Id, uploadResult.Data));
+                    .SetFile(new SetFileDto(model.Id, uploadResult.Data, model.File.Length));
 
                 if (result.Success)
                 {
@@ -166,6 +171,36 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             AddErrors(result);
             return View(model);
+        }
+        public IActionResult Detail(int id)
+        {
+            var producut = _userService.GetProduct(id);
+
+            if (producut.Data == null)
+                return RedirectPermanent("/");
+
+            if (producut.Data.UserId != UserId)
+                return RedirectPermanent("/");
+
+            return View(producut.Data);
+        }
+
+        public IActionResult Download(int id)
+        {
+            var producut = _userService.GetProduct(id);
+
+            if (producut.Data == null)
+                return RedirectPermanent("/");
+
+            if (producut.Data.UserId != UserId)
+                return RedirectPermanent("/");
+
+            if (string.IsNullOrEmpty(producut.Data.File))
+                return RedirectPermanent("/");
+
+            var filePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, "Files", producut.Data.File);
+
+            return PhysicalFile(filePath, "dekfoejf/fefwfw", $"{producut.Data.Title}{System.IO.Path.GetExtension(producut.Data.File)}");
         }
         private ServiceResult<ProductDto> Validation(int id)
         {

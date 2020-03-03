@@ -1,0 +1,106 @@
+﻿@using DownloadableProduct.Domain.Dto.Product
+@using DNTPersianUtils.Core
+@model ProductDto
+@{
+    ViewData["Title"] = "مشاهده جزییات طرح";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری</a></li>
+            <li><a href="/User/Product/Index">لیست طرح های من</a></li>
+            <li class="active">مشاهده جزییات طرح</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="product__detail">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="col-md-3 col-sm-4 col-xs-12">
+                        @if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Confirmed)
+                        {
+                            <img src="~/Files/@Model.Image" class="img-responsive img-thumbnail" />
+                        }
+                        else
+                        {
+                            if (string.IsNullOrEmpty(Model.UserUpoadImage))
+                            {
+                                <img src="~/Static/img/nophoto.jfif" class="img-responsive img-thumbnail" />
+                            }
+                            else
+                            {
+                                <img src="~/Files/@Model.UserUpoadImage" class="img-responsive img-thumbnail" />
+                            }
+
+                        }
+
+                    </div>
+                    <div class="col-md-9 col-sm-8 col-xs-12">
+                        <h1 class="product__detail__title">@Model.Title.ToPersianNumbers()</h1>
+                        <div>
+                            قیمت :
+                            @if (Model.Price == 0)
+                            {
+                                <span>رایگان</span>
+                            }
+                            else
+                            {
+                                <span>@Model.Price.ToString("#,##").ToPersianNumbers() تومان</span>
+                            }
+                        </div>
+                        <div>پسوند فایل : @Model.Extension.ToPersianNumbers()</div>
+                        <div>ابعاد : @Model.Dimensions.ToPersianNumbers()</div>
+                        <div>
+                            وضعیت :
+                            @if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Confirmed)
+                            {
+                                <span class="label label-success">تایید شده</span>
+                            }
+                            else if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Production)
+                            {
+                                <span class="label label-warning">درحال تکمیل اطلاعات توسط شما</span>
+                            }
+                            else if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Rejected)
+                            {
+                                <span class="label label-danger">رد شده</span>
+                            }
+                            else
+                            {
+                                <span class="label label-default">درحال بررسی اطلاعات توسط مدیر سایت</span>
+                            }
+                        </div>
+
+                        @if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Confirmed)
+                        {
+                            <div>تعداد مشاهده : @Model.CountView.ToPersianNumbers()</div>
+                            <div>تعداد فروش : @Model.CountBuy.ToPersianNumbers()</div>
+                        }
+
+                        <div>
+                            تاریخ ایجاد : @Model.CreateDate.ToFriendlyPersianDateTextify()
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model.File))
+                        {
+                            <div>
+                                <a href="/User/Product/Download/@(Model.Id)" class="btn btn-success">دانلود فایل</a>
+                            </div>
+                        }
+                        <hr />
+                        <div>@Model.Description.ToPersianNumbers()</div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

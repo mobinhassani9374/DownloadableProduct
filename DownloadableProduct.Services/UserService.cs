@@ -277,6 +277,7 @@ namespace DownloadableProduct.Services
             product.File = dto.FileName;
             product.Status = ProductStatus.Wating;
             product.UploadFileDate = DateTime.Now;
+            product.FileLength = dto.Length;
 
             _productRepository.Update(product);
 

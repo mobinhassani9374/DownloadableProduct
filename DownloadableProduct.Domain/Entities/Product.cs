@@ -13,6 +13,7 @@ namespace DownloadableProduct.Domain.Entities
         public string Image { get; set; }
         public string SmallImage { get; set; }
         public string File { get; set; }
+        public long? FileLength { get; set; }
         public string Extension { get; set; }
         public int CountBuy { get; set; }
         public DateTime? UserUpoadImageDate { get; set; }
