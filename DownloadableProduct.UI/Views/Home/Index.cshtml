@@ -27,9 +27,28 @@
                             @* @product.User?.FullName *@
                         </div>
                         <div class="product__item__title">@product.Title</div>
-                        <div class="product__item__price">قیمت : <span>@product.Price.ToPersianNumbers("#,##")</span> تومان</div>
+                        <div class="product__item__price">
+                            قیمت :
+                            @if (product.Price == 0)
+                            {
+                                <span>رایگان</span>
+                            }
+                            else
+                            {
+                                <span>@product.Price.ToPersianNumbers("#,##") تومان</span>
+                            }
+                        </div>
                         <div class="product__item__btn">
-                            <a href="/Home/Detail/@product.Id" class="btn btn-block btn-success">مشاهده جزئیات و خرید </a>
+                            @if (product.Price == 0)
+                            {
+                                <a href="/Home/Detail/@product.Id" class="btn btn-block btn-success">مشاهده جزئیات و دانلود </a>
+
+                            }
+                            else
+                            {
+                                <a href="/Home/Detail/@product.Id" class="btn btn-block btn-success">مشاهده جزئیات و خرید </a>
+
+                            }
                         </div>
                     </div>
                 </div>

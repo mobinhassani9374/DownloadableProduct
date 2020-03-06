@@ -17,5 +17,11 @@ namespace DownloadableProduct.Services.Mapping
 
             return sources;
         }
+
+        public static ProductDto SetUser(this ProductDto source, List<UserDto> users)
+        {
+            source.User = users.FirstOrDefault(c => c.Id == source.UserId);
+            return source;
+        }
     }
 }

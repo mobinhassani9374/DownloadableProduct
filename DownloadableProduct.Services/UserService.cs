@@ -7,6 +7,7 @@ using DownloadableProduct.Domain.Enums;
 using DownloadableProduct.Services.Mapping;
 using DownloadableProduct.Utillity;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace DownloadableProduct.Services
@@ -79,6 +80,7 @@ namespace DownloadableProduct.Services
             {
                 var user = _userRepository.GetEntity(payment.UserId);
                 var purchase = _purchaseRepository.Get(payment.ValueId);
+                var product = _productRepository.Get(purchase.ProductId);
 
                 payment.IsSuccess = true;
                 payment.ResponseDate = DateTime.Now;
@@ -91,11 +93,16 @@ namespace DownloadableProduct.Services
                 //
                 purchase.IsSuccess = true;
 
+                //
+                product.CountBuy++;
+
                 _userRepository.Update(user);
 
                 _paymentRepository.Update(payment);
 
                 _purchaseRepository.Update(purchase);
+
+                _productRepository.Update(product);
 
                 _purchaseRepository.Save();
             }
@@ -140,7 +147,11 @@ namespace DownloadableProduct.Services
             if (product == null)
                 result.AddError("EntityNotFoundByKey");
 
-            else result.Data = product.ToDto();
+            else
+            {
+                var users = _userRepository.Get(new List<string>() { product.UserId });
+                result.Data = product.ToDto().SetUser(users);
+            }
 
             return result;
         }

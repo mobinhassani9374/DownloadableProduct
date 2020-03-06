@@ -52,7 +52,15 @@
                     </div>
                     @if (!string.IsNullOrEmpty((string)ViewBag.UserUpoadImage))
                     {
-                        <div class="form-group"><img src="~/Files/@ViewBag.UserUpoadImage" class="img-responsive img-thumbnail" />
+                        <div class="form-group">
+                            <div class="alert alert-danger">
+                                اگر عکسی را انتحاب نمایید جایگزین این عکس میشود
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <img src="~/Files/@ViewBag.UserUpoadImage" class="img-responsive img-thumbnail" />
+                                </div>
+                            </div>
                         </div>
                     }
                     <div class="form-group">

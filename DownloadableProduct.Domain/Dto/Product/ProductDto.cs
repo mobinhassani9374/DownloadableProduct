@@ -23,5 +23,6 @@ namespace DownloadableProduct.Domain.Dto.Product
         public ProductStatus Status { get; set; }
         public string UserId { get; set; }
         public UserDto User { get; set; }
+        public long? FileLength { get; set; }
     }
 }
