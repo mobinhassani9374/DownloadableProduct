@@ -3,6 +3,7 @@ using DownloadableProduct.Services;
 using DownloadableProduct.UI.Models.Product;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace DownloadableProduct.UI.Controllers
 {
@@ -45,6 +46,15 @@ namespace DownloadableProduct.UI.Controllers
             if (UserId == product.Data.UserId)
             {
                 Swal(false, "طرح متعلق به شما می باشد و امکان خرید توسط خود شما نمی باشد");
+                return RedirectToAction(nameof(Detail), new { id = id });
+            }
+
+            // بررسی میشود که آیا کاربر قبلا طرح را خریداری کرده است یا نه؟
+            var purchaseSuc = _userService.GetAllSuccessPurchase(UserId);
+            
+            if(purchaseSuc.Data.Any(c => c.ProductId == product.Data.Id))
+            {
+                Swal(false, "شما قبلا این طرح را خریداری کرده اید و در طرح های خریداری شده توسط من در ناحیه کاربری نیز قابل مشاهده می باشد");
                 return RedirectToAction(nameof(Detail), new { id = id });
             }
 

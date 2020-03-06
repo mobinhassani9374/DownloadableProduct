@@ -79,7 +79,7 @@
 
                         @if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Confirmed)
                         {
-                            <div>تعداد مشاهده : @Model.CountView.ToPersianNumbers()</div>
+                            @*<div>تعداد مشاهده : @Model.CountView.ToPersianNumbers()</div>*@
                             <div>تعداد فروش : @Model.CountBuy.ToPersianNumbers()</div>
                         }
 

@@ -2,6 +2,7 @@
 using DownloadableProduct.Domain.Dto.Checkout;
 using DownloadableProduct.Domain.Dto.Pagination;
 using DownloadableProduct.Domain.Dto.Product;
+using DownloadableProduct.Domain.Dto.Purchase;
 using DownloadableProduct.Domain.Dto.User;
 using DownloadableProduct.Domain.Enums;
 using DownloadableProduct.Services.Mapping;
@@ -295,6 +296,11 @@ namespace DownloadableProduct.Services
             if (_productRepository.Save() == 0) result.AddError("Error");
 
             return result;
+        }
+        public ServiceResult<List<PurchaseDto>> GetAllSuccessPurchase(string userId)
+        {
+            var data = _purchaseRepository.GetAllSuccess(userId).ToDto();
+            return new ServiceResult<List<PurchaseDto>>(true, data);
         }
     }
 }

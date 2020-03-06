@@ -1,4 +1,5 @@
-﻿using DownloadableProduct.Domain.Dto.User;
+﻿using DownloadableProduct.Domain.Dto.Purchase;
+using DownloadableProduct.Domain.Dto.User;
 using DownloadableProduct.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,25 @@ namespace DownloadableProduct.Services.Mapping
         {
             return new Purchase
             {
+                ProductId = source.ProductId,
+                UserId = source.UserId
+            };
+        }
+        public static List<PurchaseDto> ToDto(this List<Purchase> sources)
+        {
+            var result = new List<PurchaseDto>();
+
+            foreach (var source in sources)
+                result.Add(source.ToDto());
+
+            return result;
+        }
+        public static PurchaseDto ToDto(this Purchase source)
+        {
+            return new PurchaseDto
+            {
+                CreateDate = source.CreateDate,
+                IsSuccess = source.IsSuccess,
                 ProductId = source.ProductId,
                 UserId = source.UserId
             };
