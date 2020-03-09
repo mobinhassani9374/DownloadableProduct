@@ -36,6 +36,7 @@ namespace DownloadableProduct.Identity
             product.Property(c => c.SmallImage).HasMaxLength(60).IsRequired(false);
             product.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
             product.Property(c => c.UserUpoadImage).HasMaxLength(60).IsRequired(false);
+            product.Property(c => c.RejectMessage).HasMaxLength(550);
 
             var purchase = builder.Entity<Purchase>();
 

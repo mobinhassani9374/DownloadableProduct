@@ -1,0 +1,75 @@
+﻿@using DownloadableProduct.Domain.Dto.Product
+@using DNTPersianUtils.Core
+@using DownloadableProduct.Domain.Enums
+@model List<ProductDto>
+@{
+    ViewData["Title"] = "طرح های خریداری شده توسط من";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری</a></li>
+            <li class="active">طرح های خریداری شده توسط من</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="panel panel-success">
+                    <div class="panel-heading">طرح های خریداری شده توسط من</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>عکس طرح</th>
+                                    <th>عنوان </th>
+                                    <th>حجم فایل</th>
+                                    <th>دانلود</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="5">تاکنون طرحی خریداری نکرده اید</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@((i++).ToPersianNumbers())</td>
+                                            <td>
+                                                <img src="~/Files/@item.SmallImage" style="width:30px;height:30px;border-radius:50%;"/>
+                                            </td>
+                                            <td>@item.Title</td>
+                                            <td>
+                                                @if(item.FileLength.HasValue)
+                                                {
+                                                <span>@DownloadableProduct.Utillity.FileUtility.GetLength(item.FileLength.Value).ToPersianNumbers()</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="/User/Product/DownloadBuy/@(item.Id)" class="btn btn-success">دانلود</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,8 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
+@using DNTPersianUtils.Core
 @model List<ProductDto>
 @{
-    ViewData["Title"] = "لیست محصولات در حال انتظار";
+    ViewData["Title"] = "لیست طرح های در حال انتظار";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +11,7 @@
         <ol class="breadcrumb">
             <li><a href="/">ایران گرافیک</a></li>
             <li><a href="/admin">پنل مدیریتی</a></li>
-            <li class="active">لیست محصولات در حال انتظار</li>
+            <li class="active">لیست طرح های در حال انتظار</li>
         </ol>
     </div>
 </div>
@@ -20,7 +21,7 @@
         <div class="row">
             <div class="table-responsive">
                 <div class="panel panel-success">
-                    <div class="panel-heading">لیست محصولات در حال انتظار</div>
+                    <div class="panel-heading">لیست طرح های در حال انتظار</div>
                     <div class="panel-body">
                         <table class="table table-striped">
                             <thead>
@@ -36,10 +37,19 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.Title</td>
-                                        <td>@item.Price</td>
-                                        <td>@item.User?.FullName</td>
+                                        <td>@item.Id.ToPersianNumbers()</td>
+                                        <td>@item.Title.ToPersianNumbers()</td>
+                                        <td>
+                                        @if(item.Price==0)
+                                        {
+                                            <span>رایگان</span>
+                                        }
+                                        else
+                                        {
+                                            <span>@item.Price.ToString("#,##").ToPersianNumbers() تومان</span>
+                                        }
+                                        </td>
+                                        <td>@item.User?.FullName.ToPersianNumbers()</td>
                                         <td>
                                             <a class="btn btn-success" href="/Admin/Product/Check/@item.Id">بررسی</a>
                                         </td>

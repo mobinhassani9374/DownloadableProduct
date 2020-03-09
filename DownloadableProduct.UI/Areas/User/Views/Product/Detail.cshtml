@@ -76,12 +76,20 @@
                                 <span class="label label-default">درحال بررسی اطلاعات توسط مدیر سایت</span>
                             }
                         </div>
+                        @if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Rejected)
+                        {
+                            <div>دلیل رد طرح : @Model.RejectMessage</div>
+                        }
 
                         @if (Model.Status == DownloadableProduct.Domain.Enums.ProductStatus.Confirmed)
                         {
                             @*<div>تعداد مشاهده : @Model.CountView.ToPersianNumbers()</div>*@
-                            <div>تعداد فروش : @Model.CountBuy.ToPersianNumbers()</div>
+                            @if (Model.Price != 0)
+                            {
+                                <div>تعداد فروش : @Model.CountBuy.ToPersianNumbers()</div>
+                            }
                         }
+
 
                         <div>
                             تاریخ ایجاد : @Model.CreateDate.ToFriendlyPersianDateTextify()

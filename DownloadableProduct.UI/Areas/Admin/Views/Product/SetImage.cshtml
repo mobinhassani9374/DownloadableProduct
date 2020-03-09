@@ -1,7 +1,7 @@
 ﻿@using DownloadableProduct.UI.Models.Product
 @model SetFileViewModel
 @{
-    ViewData["Title"] = "بررسی محصول  -  انتخاب فایل محصول";
+    ViewData["Title"] = "بررسی محصول  -  عکس اصلی طرح";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li><a href="/">ایران گرافیک</a></li>
             <li><a href="/admin">پنل مدیریتی</a></li>
-            <li class="active">بررسی محصول - انتخاب فایل محصول</li>
+            <li class="active">بررسی محصول - عکس اصلی طرح</li>
         </ol>
     </div>
 </div>
@@ -19,17 +19,17 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="login__title">بررسی محصول - انتخاب فایل محصول</div>               
+                <div class="login__title">بررسی محصول - عکس اصلی طرح</div>               
                 <form method="post" enctype="multipart/form-data">  
                     @Html.AntiForgeryToken()
                     @Html.Partial("ErrorPartialView")
                     <input type="hidden" asp-for="Id" value="@ViewBag.Id" />                 
                     <div class="form-group">
-                        <label>  انتخاب فایل محصول </label>
+                        <label>  انتخاب عکس اصلی طرح :  </label>
                         <input type="file"  name="@Html.NameFor(c=>c.File)" class="form-control" >
                     </div>                                   
                     <div class="form-group">
-                        <button type="submit" required class="btn btn-success btn-block">تایید و مرحله بعد</button>
+                        <button type="submit" required class="btn btn-success btn-block">تایید </button>
                     </div>
                 </form>
             </div>

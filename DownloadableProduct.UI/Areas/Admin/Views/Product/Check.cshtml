@@ -1,7 +1,8 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
+@using DNTPersianUtils.Core
 @model ProductDto
 @{
-    ViewData["Title"] = "بررسی محصول  - اطلاعات پایه";
+    ViewData["Title"] = "بررسی طرح  - اطلاعات پایه";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +11,7 @@
         <ol class="breadcrumb">
             <li><a href="/">ایران گرافیک</a></li>
             <li><a href="/admin">پنل مدیریتی</a></li>
-            <li class="active">بررسی محصول  - اطلاعات پایه</li>
+            <li class="active">بررسی طرح  - اطلاعات پایه</li>
         </ol>
     </div>
 </div>
@@ -21,19 +22,32 @@
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="col-md-3 col-sm-4 col-xs-12">
-                        <img src="~/Files/@Model.UserUpoadImage" class="img-responsive img-thumbnail"/>
+                        <img src="~/Files/@Model.UserUpoadImage" class="img-responsive img-thumbnail" />
                     </div>
                     <div class="col-md-9 col-sm-8 col-xs-12">
-                        <h1 class="product__detail__title">@Model.Title</h1>
-                        <div>قیمت : <span>@Model.Price</span> تومان</div>
-                        <div>پسوند فایل : @Model.Extension</div>
-                        <div>ابعاد : @Model.Dimensions</div>
-                        <div>زمان ایجاد :  @Model.CreateDate</div>
+                        <h1 class="product__detail__title">@Model.Title.ToPersianNumbers()</h1>
+                        <div>
+                            قیمت :
+                            @if (Model.Price == 0)
+                            {
+                               <sapn>رایگان</sapn>
+                            }
+                            else
+                            {
+                                <span>@Model.Price.ToString("#,##").ToPersianNumbers() تومان</span>
+                            }
+
+                        </div>
+                        <div>پسوند فایل : @Model.Extension.ToPersianNumbers()</div>
+                        <div>ابعاد : @Model.Dimensions.ToPersianNumbers()</div>
+                        <div>زمان ایجاد :  @Model.CreateDate.ToShortPersianDateTimeString().ToPersianNumbers()</div>
                         <div style="margin-top: 10px;">
                             <a href="/Admin/Product/SetSmallImage/@Model.Id" class="btn btn-success">تایید و مرحله بعد </a>
+                            <a href="/Admin/Product/Reject/@Model.Id" class="btn btn-danger">رد </a>
+                            <a href="/Admin/Product/Edit/@Model.Id" class="btn btn-primary">ویرایش </a>
                         </div>
                         <hr />
-                        <div>@Model.Description</div>
+                        <div>توضیحات : @Model.Description.ToPersianNumbers()</div>
                     </div>
                 </div>
             </div>

@@ -17,10 +17,16 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
             _userService = userService;
         }
 
+        public IActionResult Index(CheckoutSearchViewModel model)
+        {
+            var result = _userService.GetAllChecoutForUser(model.PageNumber, model.PageSize, UserId);
+            return View(result.Data);
+        }
+
         public IActionResult Create()
         {
             var wallet = _userService.GetWallet(UserId).Data;
-            ViewBag.Wallet = wallet;
+            ViewBag.Wallet = wallet.ToString("#,##");
             return View();
         }
 
@@ -31,8 +37,13 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
             var result = _userService.CheckoutRequest(model.ToDto(UserId));
 
             if (result.Success)
-                return RedirectToAction(nameof(Create));
+            {
+                Swal(true, "درخواست تسویه حساب با موفقیت ثبت شد");
+                return RedirectToAction(nameof(Index));
+            }
 
+            var wallet = _userService.GetWallet(UserId).Data;
+            ViewBag.Wallet = wallet.ToString("#,##");
             AddErrors(result);
 
             return View(model);

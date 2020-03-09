@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DownloadableProduct.DataAccess.Repositories;
 using DownloadableProduct.Domain.Dto.Product;
 using DownloadableProduct.Services;
 using DownloadableProduct.UI.Helpers;
@@ -19,15 +20,18 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         private readonly FileHelper _fileHelper;
         private readonly UserService _userService;
         private readonly IHostingEnvironment _hostingEnvironment;
+        private readonly PurchaseRepository _purchaseRepository;
         public ProductController(ProductService productService,
             FileHelper fileHelper,
             UserService userService,
-            IHostingEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment,
+            PurchaseRepository purchaseRepository)
         {
             _productService = productService;
             _fileHelper = fileHelper;
             _userService = userService;
             _hostingEnvironment = hostingEnvironment;
+            _purchaseRepository = purchaseRepository;
         }
 
         public IActionResult Index()
@@ -201,6 +205,23 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
             var filePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, "Files", producut.Data.File);
 
             return PhysicalFile(filePath, "dekfoejf/fefwfw", $"{producut.Data.Title}{System.IO.Path.GetExtension(producut.Data.File)}");
+        }
+        public IActionResult Buy()
+        {
+            var data = _userService.Buy(UserId);
+            return View(data.Data);
+        }
+        public IActionResult DownloadBuy(int id)
+        {
+            var purchaseSuc = _purchaseRepository.GetAllSuccess(UserId);
+            if (!purchaseSuc.Any(c => c.ProductId == id))
+                return RedirectToAction(nameof(Buy));
+            var producut = _userService.GetProduct(id);
+
+            var filePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, "Files", producut.Data.File);
+
+            return PhysicalFile(filePath, "dekfoejf/fefwfw", $"{producut.Data.Title}{System.IO.Path.GetExtension(producut.Data.File)}");
+
         }
         private ServiceResult<ProductDto> Validation(int id)
         {

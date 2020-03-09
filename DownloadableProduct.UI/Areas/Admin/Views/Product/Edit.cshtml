@@ -1,0 +1,61 @@
+﻿@using DownloadableProduct.UI.Models.Product
+@model ProductUpdateViewModel
+@{
+    ViewData["Title"] = "ویرایش اطلاعات پایه طرح";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/admin">پنل ادمین</a></li>
+            <li class="active">ویرایش اطلاعات پایه طرح</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="login__title">ویرایش اطلاعات پایه طرح</div>
+               
+                <form method="post">
+                    <input type="hidden" asp-for="Id"/>
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("ErrorPartialView")
+                    <div class="form-group">
+                        <label> عنوان طرح را وارد کنید : </label>
+                        <input data-error-msg="این فیلد الزامی است" type="text" required name="Title" value="@Model?.Title" class="form-control" placeholder="عنوان طرح">
+                    </div>
+                    
+                       <div class="alert alert-info">
+                           اگر قیمت طرح را صفر تومان وارد نمایید طرح به صورت رایگان در نظر گرفته میشود
+                       </div>
+                 
+                    <div class="form-group">
+                        <label>   قیمت طرح را وارد کنید (به تومان) : </label>
+                        <input type="number" min="0" required name="Price" value="@Model?.Price" class="form-control" placeholder="قیمت طرح">
+                    </div>
+                    <div class="form-group">
+                        <label>    پسوند طرح را وارد کنید : </label>
+                        <input type="text" required name="Extension" value="@Model?.Extension" class="form-control" placeholder="پسوند طرح">
+                    </div>
+                    <div class="form-group">
+                        <label>    ابعاد فایل را وارد کنید : </label>
+                        <input type="text" required value="@Model?.Dimensions" name="Dimensions" class="form-control" placeholder="ابعاد فایل">
+                    </div>
+                    <div class="form-group">
+                        <label>     توضیحات طرح را وارد کنید : </label>
+                        <textarea required name="Description" rows="7" class="form-control" placeholder="توضیحات طرح">@Model?.Description</textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">تایید و مرحله بعد</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,7 +1,7 @@
 ﻿@using DownloadableProduct.UI.Models.Product
 @model SetImageViewModel
 @{
-    ViewData["Title"] = "بررسی محصول - انتخاب عکس محصول";
+    ViewData["Title"] = "بررسی طرح - انتخاب عکس کوچک طرح ";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li><a href="/">ایران گرافیک</a></li>
             <li><a href="/admin">پنل مدیریتی</a></li>
-            <li class="active">بررسی محصول - انتخاب عکس محصول</li>
+            <li class="active">بررسی طرح - انتخاب عکس کوچک طرح </li>
         </ol>
     </div>
 </div>
@@ -19,15 +19,16 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="login__title">بررسی محصول - انتخاب عکس محصول</div>               
-                <form method="post" enctype="multipart/form-data">  
+                <div class="login__title">بررسی طرح - انتخاب عکس کوچک طرح </div>               
+                <form method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     @Html.Partial("ErrorPartialView")
-                    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />                 
+                    <input type="hidden" asp-for="Id" value="@ViewBag.Id" />
+                    
                     <div class="form-group">
-                        <label>  انتخاب عکس محصول </label>
-                        <input type="file" name="@Html.NameFor(c=>c.Image)" class="form-control" >
-                    </div>                                   
+                        <label>  انتخاب عکس کوچک طرح : </label>
+                        <input type="file" name="@Html.NameFor(c=>c.Image)" class="form-control">
+                    </div>
                     <div class="form-group">
                         <button type="submit" required class="btn btn-success btn-block">تایید و مرحله بعد</button>
                     </div>

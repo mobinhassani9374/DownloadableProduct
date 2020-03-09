@@ -58,16 +58,26 @@ namespace DownloadableProduct.Services
         }
         public ServiceResult CheckoutRequest(CheckoutRequestDto dto)
         {
-            var entity = dto.ToEntity();
+            var count = _checkoutRepository.CountWatingForUser(dto.UserId);
 
-            entity.CreateDate = DateTime.Now;
-            entity.Status = CheckoutStatus.Wating;
+            if (count == 0)
+            {
+                var wallet = _userRepository.GetWallet(dto.UserId);
+                if (dto.Price > wallet)
+                    return ServiceResult.Error("CheckoutPriceInvalid");
+                var entity = dto.ToEntity();
 
-            _checkoutRepository.Insert(entity);
+                entity.CreateDate = DateTime.Now;
+                entity.Status = CheckoutStatus.Wating;
 
-            _checkoutRepository.Save();
+                _checkoutRepository.Insert(entity);
 
-            return ServiceResult.Okay();
+                _checkoutRepository.Save();
+
+                return ServiceResult.Okay();
+            }
+
+            return ServiceResult.Error("NoCreateCheckout");
         }
         public ServiceResult SuccessPayment(int id)
         {
@@ -138,6 +148,12 @@ namespace DownloadableProduct.Services
             var data = _productRepository.GetAllConfirmed(pageNumber, pageSize);
             var users = _userRepository.Get(data.Data.Select(c => c.UserId).ToList());
             return new ServiceResult<PaginationDto<ProductDto>>(true, data.ToDto().SetUser(users));
+        }
+
+        public ServiceResult<PaginationDto<CheckoutDto>> GetAllChecoutForUser(int pageNumber, int pageSize, string userId)
+        {
+            var data = _checkoutRepository.GetAllForUser(pageNumber, pageSize, userId);
+            return new ServiceResult<PaginationDto<CheckoutDto>>(true, data.ToDto());
         }
         public ServiceResult<ProductDto> GetProduct(int id)
         {
@@ -301,6 +317,13 @@ namespace DownloadableProduct.Services
         {
             var data = _purchaseRepository.GetAllSuccess(userId).ToDto();
             return new ServiceResult<List<PurchaseDto>>(true, data);
+        }
+        public ServiceResult<List<ProductDto>> Buy(string userId)
+        {
+            var purchaseSuc = _purchaseRepository.GetAllSuccess(userId);
+            var purchaseSucIds = purchaseSuc.Select(c => c.ProductId).ToList();
+            var data = _productRepository.GetAllByIds(purchaseSucIds);
+            return new ServiceResult<List<ProductDto>>(true, data.ToDto());
         }
     }
 }

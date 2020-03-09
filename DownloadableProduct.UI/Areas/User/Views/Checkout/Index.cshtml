@@ -1,0 +1,82 @@
+﻿@using DownloadableProduct.Domain.Dto.Pagination
+@using DownloadableProduct.Domain.Dto.Checkout
+@using DNTPersianUtils.Core
+@model PaginationDto<CheckoutDto>
+@{
+    ViewData["Title"] = "لیست تسویه حساب های من";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+    if (Model.PageNumber > 1)
+    {
+        i = (Model.PageNumber - 1) * Model.PageSize + 1;
+    }
+}
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li><a href="/user">ناحیه کاربری</a></li>
+            <li class="active">لیست تسویه حساب های من</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="panel panel-success">
+                    <div class="panel-heading">لیست طرح های من</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>مبلغ درخواستی </th>
+                                    <th>تاریخ درخواست</th>
+                                    <th>وضعیت</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Data.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="4">تاکنون طرحی بارگذاری نکرده اید</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var item in Model.Data)
+                                    {
+                                    <tr>
+                                        <td>@((i++).ToPersianNumbers())</td>
+                                        <td>@item.Price.ToString("#,##").ToPersianNumbers() تومان</td>
+                                        <td>@(item.CreateDate.ToPersianDateTextify())</td>
+                                        <td>
+                                            @if (item.Status == DownloadableProduct.Domain.Enums.CheckoutStatus.Confirmed)
+                                            {
+                                                <span class="label label-success">تایید شده</span>
+                                            }
+                                            else if (item.Status == DownloadableProduct.Domain.Enums.CheckoutStatus.Rejected)
+                                            {
+                                                <span class="label label-danger">رد شده</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-default">درحال بررسی اطلاعات توسط مدیر سایت</span>
+                                            }
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @Html.Partial("_Pagination", Model)
+        </div>
+    </div>
+</div>
+

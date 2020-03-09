@@ -21,6 +21,13 @@ namespace DownloadableProduct.DataAccess.Repositories
                 .OrderByDescending(c => c.CreateDate)
                 .ToList();
         }
+        public List<Product> GetAllByIds(List<int> productIds)
+        {
+            return _context
+                .Products
+                .Where(c => productIds.Any(i=>i==c.Id))
+                .ToList();
+        }
         public List<Product> GetAllAvailable()
         {
             return _context

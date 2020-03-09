@@ -69,6 +69,8 @@ namespace DownloadableProduct.UI.Controllers
             errors.Add("ProductNotFound", "طرحی یافت نشد");
             errors.Add("ProductNotProduction", "اجازه ویرایش طرح را ندارید");
             errors.Add("ProductNotForUser", "طرح متعلق به شما نیست");
+            errors.Add("NoCreateCheckout","امکان ایجاد درخواست تسویه حساب ندارید زیرا یک تسویه حساب در حال بررسی دارید");
+            errors.Add("CheckoutPriceInvalid", "مبلغ درخواست تسویه حساب بیش از موجودی شما ی باشد");
         }
     }
 }

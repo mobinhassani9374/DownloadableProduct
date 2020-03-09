@@ -1,4 +1,5 @@
 ﻿using DownloadableProduct.Domain.Dto.Checkout;
+using DownloadableProduct.Domain.Dto.Pagination;
 using DownloadableProduct.Domain.Dto.User;
 using DownloadableProduct.Domain.Entities;
 using System.Collections.Generic;
@@ -33,7 +34,19 @@ namespace DownloadableProduct.Services.Mapping
                 ResponseDate = source.ResponseDate,
                 Status = source.Status,
                 User = users.FirstOrDefault(c => c.Id == source.UserId)
-        };
+            };
+        }
+        public static PaginationDto<CheckoutDto> ToDto(this PaginationDto<Checkout> source)
+        {
+            var result = new PaginationDto<CheckoutDto>();
+
+            result.Count = source.Count;
+            result.PageCount = source.PageCount;
+            result.PageNumber = source.PageNumber;
+            result.PageSize = source.PageSize;
+            result.Data = source.Data.ToDto(new List<UserDto>());
+
+            return result;
+        }
     }
-}
 }

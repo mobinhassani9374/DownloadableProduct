@@ -24,5 +24,6 @@ namespace DownloadableProduct.Domain.Dto.Product
         public string UserId { get; set; }
         public UserDto User { get; set; }
         public long? FileLength { get; set; }
+        public string RejectMessage { get; set; }
     }
 }

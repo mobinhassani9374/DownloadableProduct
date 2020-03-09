@@ -25,6 +25,7 @@ namespace DownloadableProduct.Domain.Entities
         public string UserUpoadImage { get; set; }
         public ProductStatus Status { get; set; }
         public string UserId { get; set; }
+        public string RejectMessage { get; set; }
         public ICollection<Purchase> Purchases { get; set; }
     }
 }
