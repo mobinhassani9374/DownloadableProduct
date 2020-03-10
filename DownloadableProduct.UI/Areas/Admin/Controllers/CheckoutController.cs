@@ -19,5 +19,27 @@ namespace DownloadableProduct.UI.Areas.Admin.Controllers
             var result = _adminService.GetAllWatingCheckout();
             return View(result.Data);
         }
+        public IActionResult Confirm(int id)
+        {
+            var result = _adminService.CheckoutCinfirm(id);
+
+            if (result.Success)
+                Swal(true, "عملیات با موفقیت انجام شد");
+            else Swal(false, result.Errors.Select(c => c.Code).FirstOrDefault(), true);
+
+            return RedirectToAction(nameof(Wating));
+        }
+        public IActionResult Reject(int id)
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public IActionResult Reject(int id, string description)
+        {
+            var result = _adminService.Reject(id, description);
+            Swal(true, "عملیات با موفقیت انجام شد");
+            return RedirectToAction(nameof(Wating));
+        }
     }
 }

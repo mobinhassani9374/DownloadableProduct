@@ -1,4 +1,5 @@
 ﻿@using DownloadableProduct.Domain.Dto.Checkout
+@using DNTPersianUtils.Core
 @model List<CheckoutDto>
 @{
     ViewData["Title"] = "درخواست های تسویه حساب";
@@ -26,24 +27,28 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>مبلغ درخواستی</th>
                                     <th>کاربر</th>
+                                    <th>مبلغ درخواستی</th>
                                     <th>موجودی کیف پول کاربر</th>
-                                    <th>بررسی</th>
+                                    <th>تایید</th>
+                                    <th>رد</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td>@item.Id</td>
-                                        <td>@item.Price</td>
-                                        <td>@item.User?.FullName</td>
-                                        <td>@item.User?.Wallet</td>
-                                        <td>
-                                            <a class="btn btn-success" href="/Admin/Checkout/Check/@item.Id">بررسی</a>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>@item.Id.ToPersianNumbers()</td>
+                                    <td>@item.User?.FullName.ToPersianNumbers()</td>
+                                    <td>@item.Price.ToString("#,##").ToPersianNumbers() تومان</td>
+                                    <td>@item.User?.Wallet.ToString("#,##").ToPersianNumbers() تومان</td>
+                                    <td>
+                                        <a class="btn btn-success" href="/Admin/Checkout/Confirm/@item.Id">تایید</a>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger" href="/Admin/Checkout/Reject/@item.Id">رد</a>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>

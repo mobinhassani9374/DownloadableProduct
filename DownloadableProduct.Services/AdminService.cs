@@ -78,5 +78,29 @@ namespace DownloadableProduct.Services
             _productRepository.Save();
             return ServiceResult.Okay();
         }
+        public ServiceResult CheckoutCinfirm(int id)
+        {
+            var result = new ServiceResult(true);
+
+            var checkout = _checkoutRepository.Get(id);
+
+            if (checkout == null)
+                result.AddError("EntityNotFoundByKey");
+            else
+            {
+                checkout.Status = Domain.Enums.CheckoutStatus.Confirmed;
+                checkout.ResponseDate = DateTime.Now;
+
+                var user = _userRepository.GetEntity(checkout.UserId);
+
+                user.Wallet = user.Wallet - checkout.Price;
+
+                _checkoutRepository.Update(checkout);
+                _userRepository.Update(user);
+                _checkoutRepository.Save();
+            }
+
+            return result;
+        }
     }
 }

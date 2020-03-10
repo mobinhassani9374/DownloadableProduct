@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Areas\Admin\Views\Checkout\Reject.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
     <Content Update="Areas\Admin\Views\Product\Reject.cshtml">
       <Pack>$(IncludeRazorContentInPack)</Pack>
     </Content>
