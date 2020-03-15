@@ -95,5 +95,17 @@ namespace DownloadableProduct.UI.Controllers
 
             return PhysicalFile(filePath, "dekfoejf/fefwfw", $"{producut.Data.Title}{System.IO.Path.GetExtension(producut.Data.File)}");
         }
+        public IActionResult ContactUs()
+        {
+            return View();
+        }
+        public IActionResult AboutUs()
+        {
+            return View();
+        }
+        public IActionResult Policy()
+        {
+            return View();
+        }
     }
 }
