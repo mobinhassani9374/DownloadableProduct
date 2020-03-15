@@ -42,3 +42,11 @@
     color: #a0ff77 !important;
     background-color: transparent !important;
 } 
+
+.pt-30 {
+    padding-top: 30px;
+}
+
+.pb-30 {
+    padding-bottom: 30px;
+}

@@ -1,8 +1,40 @@
 ﻿
 @{
-    ViewData["Title"] = "Auth";
+    ViewData["Title"] = "احراز هویت - ایران گرافیک";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Auth</h2>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">ایران گرافیک</a></li>
+            <li class="active">احراز حویت</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container pt-30 pb-30">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-6 text-center">
+                    <i style="font-size:50px;" class="fa fa-lock text-primary" aria-hidden="true"></i>
+                    <h4 class="text-center text-primary">عضو ایران  گرافیک هستید ؟؟</h4>
+                    <p class="text-center">برای تکمیل فرآیند خرید خود وارد شوید</p>
+                    <div>
+                        <a href="/login" class="btn btn-primary">ورود به ایران گرافیک</a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <i style="font-size:50px;" class="fa fa-user text-success" aria-hidden="true"></i>
+                    <h4 class="text-center text-success">تازه وارد هستید ؟؟</h4>
+                    <p class="text-center">برای تکمیل فرآیند خرید خود ثبت نام کنید</p>
+                    <div>
+                        <a href="/register" class="btn btn-success"> ثبت نام در ایران گرافیک</a>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
 
