@@ -115,7 +115,7 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
                 Swal(false, validation.Errors.First().Code, true);
                 return RedirectPermanent("/");
             }
-            if (string.IsNullOrEmpty(validation.Data.SmallImage))
+            if (string.IsNullOrEmpty(validation.Data.UserUpoadImage))
             {
                 Swal(false, "ابتدا باید عکس طرح را انتخاب کنید");
                 return RedirectToAction(nameof(SetImage), new { id = id });

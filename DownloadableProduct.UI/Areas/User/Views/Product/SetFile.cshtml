@@ -1,7 +1,7 @@
 ﻿@using DownloadableProduct.UI.Models.Product
 @model SetFileViewModel
 @{
-    ViewData["Title"] = "SetFile";
+    ViewData["Title"] = "انتخاب فایل طرح";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +11,7 @@
         <ol class="breadcrumb">
             <li><a href="/">ایران گرافیک</a></li>
             <li><a href="/User">ناحیه کاربری من</a></li>
-            <li class="active">ایجاد محصول جدید</li>
+            <li class="active">انتخاب فایل طرح</li>
         </ol>
     </div>
 </div>
@@ -20,9 +20,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="login__title">ایجاد محصول جدید</div>
-                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید محصول جدید ایجاد کنید 
-                    کنید
+                <div class="login__title">انتخاب فایل طرح</div>
+                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید فایل طرح را کنید 
+                    
                 </div>
                 <div class="wizard-progress">                   
                     <div class="step complete">
@@ -47,8 +47,8 @@
                     @Html.Partial("ErrorPartialView")
                     <input type="hidden" asp-for="Id" value="@ViewBag.Id" />                
                     <div class="form-group">
-                        <div class="alert alert-warning">
-                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <div class="alert alert-danger">
+                          
                             فایل آپلودی برای محصول باید کمتر از 500 کیلو بایت باشد
                         </div>
                     </div>                                      
