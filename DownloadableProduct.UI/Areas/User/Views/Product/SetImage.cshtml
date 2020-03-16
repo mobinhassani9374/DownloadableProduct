@@ -20,27 +20,35 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="login__title">انتخاب عکس طرح</div>
-                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید عکس طرح را انتخاب کنید 
-                    
+                <div class="login__desc">
+                    کاربر گرامی شما از این طریق این بخش می توانید عکس طرح را انتخاب کنید
+
                 </div>
-                <div class="wizard-progress">                   
+                <div class="wizard-progress">
                     <div class="step complete">
-                         ویرایش اطلاعات پایه
+                        ویرایش اطلاعات پایه
                         <div class="node"></div>
                     </div>
                     <div class="step in-progress">
-                         انتخاب عکس 
+                        انتخاب عکس
                         <div class="node"></div>
                     </div>
                     <div class="step">
-                         انتخاب فایل طرح
+                        انتخاب فایل طرح
                         <div class="node"></div>
                     </div>
                     <div class="step">
-                         پایان
+                        پایان
                         <div class="node"></div>
-                    </div>                    
+                    </div>
                 </div>
+                @if (!string.IsNullOrEmpty((string)ViewBag.UserUpoadImage))
+                {
+                    <div class="alert alert-info">
+                        <label>با استفاده از دکمه مقابل میتوانید به انتخاب فایل طرح بروید : </label> <a class="btn btn-success btn-sm" href="/User/Product/SetFile/@ViewBag.Id">انتخاب فایل طرح</a>
+                    </div>
+                }
+
                 <form method="post" enctype="multipart/form-data">
                     @Html.AntiForgeryToken()
                     @Html.Partial("ErrorPartialView")
@@ -71,8 +79,8 @@
                         <button type="submit" class="btn btn-success btn-block">تایید و مرحله بعد</button>
                     </div>
                     @* <div class="form-group">
-            <a type="button" href="/User/Product/Create" class="btn btn-default"><i class="fa fa-arrow-right"></i> مرحله قبل</a>
-        </div> *@
+                <a type="button" href="/User/Product/Create" class="btn btn-default"><i class="fa fa-arrow-right"></i> مرحله قبل</a>
+            </div> *@
                 </form>
             </div>
         </div>

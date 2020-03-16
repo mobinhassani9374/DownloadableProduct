@@ -20,17 +20,18 @@
         <div class="row">
             <div class="col-md-6 col-sm-6 col-xs-12">
                 <div class="login__title">ویرایش اطلاعات پایه طرح</div>
-                <div class="login__desc">کاربر گرامی شما از این طریق این بخش می توانید اطلاعات پایه طرح را ویرایش نمایید  
-                    
+                <div class="login__desc">
+                    کاربر گرامی شما از این طریق این بخش می توانید اطلاعات پایه طرح را ویرایش نمایید
+
                 </div>
                 <div class="wizard-progress">
                     @* // complete *@
                     <div class="step in-progress">
-                         ویرایش اطلاعات پایه
+                        ویرایش اطلاعات پایه
                         <div class="node"></div>
                     </div>
                     <div class="step">
-                         انتخاب عکس 
+                        انتخاب عکس
                         <div class="node"></div>
                     </div>
                     <div class="step">
@@ -38,23 +39,26 @@
                         <div class="node"></div>
                     </div>
                     <div class="step">
-                         پایان
+                        پایان
                         <div class="node"></div>
-                    </div>                    
+                    </div>
+                </div>
+                <div class="alert alert-info">
+                    <label>با استفاده از دکمه مقابل میتوانید به انتخاب عکس طرح بروید : </label> <a class="btn btn-success btn-sm" href="/User/Product/SetImage/@Model.Id">انتخاب عکس طرح</a>
                 </div>
                 <form method="post">
-                    <input type="hidden" asp-for="Id"/>
+                    <input type="hidden" asp-for="Id" />
                     @Html.AntiForgeryToken()
                     @Html.Partial("ErrorPartialView")
                     <div class="form-group">
                         <label> عنوان طرح را وارد کنید : </label>
                         <input data-error-msg="این فیلد الزامی است" type="text" required asp-for="Title" class="form-control" placeholder="عنوان طرح">
                     </div>
-                    
-                       <div class="alert alert-info">
-                           اگر قیمت طرح را صفر تومان وارد نمایید طرح به صورت رایگان در نظر گرفته میشود
-                       </div>
-                 
+
+                    <div class="alert alert-info">
+                        اگر قیمت طرح را صفر تومان وارد نمایید طرح به صورت رایگان در نظر گرفته میشود
+                    </div>
+
                     <div class="form-group">
                         <label>   قیمت طرح را وارد کنید (به تومان) : </label>
                         <input type="number" min="0" required asp-for="Price" class="form-control" placeholder="قیمت طرح">
