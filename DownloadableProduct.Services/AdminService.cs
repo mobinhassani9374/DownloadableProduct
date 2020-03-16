@@ -71,11 +71,11 @@ namespace DownloadableProduct.Services
 
         public ServiceResult Reject(int id, string message)
         {
-            var product = _productRepository.Get(id);
-            product.RejectMessage = message;
-            product.Status = Domain.Enums.ProductStatus.Rejected;
-            _productRepository.Update(product);
-            _productRepository.Save();
+            var checkout = _checkoutRepository.Get(id);
+            checkout.RejectMessage = message;
+            checkout.Status = Domain.Enums.CheckoutStatus.Rejected;
+            _checkoutRepository.Update(checkout);
+            _checkoutRepository.Save();
             return ServiceResult.Okay();
         }
         public ServiceResult CheckoutCinfirm(int id)

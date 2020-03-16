@@ -35,6 +35,7 @@
                                     <th>مبلغ درخواستی </th>
                                     <th>تاریخ درخواست</th>
                                     <th>وضعیت</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -64,6 +65,12 @@
                                             else
                                             {
                                                 <span class="label label-default">درحال بررسی اطلاعات توسط مدیر سایت</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if(item.Status== DownloadableProduct.Domain.Enums.CheckoutStatus.Rejected)
+                                            {
+                                                <label>@item.RejectMessage</label>
                                             }
                                         </td>
                                     </tr>

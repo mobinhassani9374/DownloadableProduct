@@ -10,5 +10,6 @@ namespace DownloadableProduct.Domain.Entities
         public DateTime? ResponseDate { get; set; }
         public CheckoutStatus Status { get; set; }
         public string UserId { get; set; }
+        public string RejectMessage { get; set; }
     }
 }

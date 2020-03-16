@@ -51,6 +51,7 @@ namespace DownloadableProduct.Identity
             var checkout = builder.Entity<Checkout>();
 
             checkout.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
+            checkout.Property(c => c.RejectMessage).HasMaxLength(550);
 
             var payment = builder.Entity<Payment>();
 

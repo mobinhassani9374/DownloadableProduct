@@ -14,5 +14,6 @@ namespace DownloadableProduct.Domain.Dto.Checkout
         public DateTime? ResponseDate { get; set; }
         public CheckoutStatus Status { get; set; }
         public UserDto User { get; set; }
+        public string RejectMessage { get; set; }
     }
 }

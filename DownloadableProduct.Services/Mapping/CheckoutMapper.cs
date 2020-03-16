@@ -33,7 +33,8 @@ namespace DownloadableProduct.Services.Mapping
                 Price = source.Price,
                 ResponseDate = source.ResponseDate,
                 Status = source.Status,
-                User = users.FirstOrDefault(c => c.Id == source.UserId)
+                User = users.FirstOrDefault(c => c.Id == source.UserId),
+                RejectMessage = source.RejectMessage
             };
         }
         public static PaginationDto<CheckoutDto> ToDto(this PaginationDto<Checkout> source)
