@@ -85,3 +85,37 @@
 .bread .breadcrumb .active {
     color: #a7f3c5;
 }
+
+.about {
+    padding:20px 0;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.about__desc {
+    text-align: center;
+    margin-top:15px;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.about__title {
+    text-align: center;
+    margin-top:15px;
+    font-size: 15px;
+    line-height: 20px;
+    color: green;
+}
+
+.about__icon {
+    width:120px;
+    border-radius: 50%;
+    height: 120px;
+    background-color: #a0ff77;
+    margin: auto;
+    font-size: 50px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
