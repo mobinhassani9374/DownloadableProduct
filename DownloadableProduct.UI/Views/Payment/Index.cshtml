@@ -1,8 +1,33 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "نتیجه پرداخت - آی گرافیک";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<div class="container pt-30 pb-30">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-md-12 text-center">
+                    <img src="~/static/img/pay-success.png" style="margin: auto;" class="img-responsive" />
+                    <h4 class="text-center text-success">تازه وارد هستید ؟؟</h4>
+                    <p class="text-center">برای تکمیل فرآیند خرید خود به لینک زیر مراجعه کنید </p>
+                    <div>
+                        <a href="/" class="btn btn-success">دانلود طرح خریداری شده </a>
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <img src="~/static/img/error.png" style="margin: auto;" class="img-responsive" />
+                    <h4 class="text-center text-danger">خطا در روند خرید </h4>
+                    <p class="text-center">عملیاتی موفقیت آمیز نبود</p>
+                    <div>
+                        <a href="/" class="btn btn-danger">بازگشت به آی گرافیک</a>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+</div>
 
 <h2>اینجا مثلا بانک هستش که میتونه شبیه سازی کنه یک عملیات موفق و ناموفق را.</h2>
 
