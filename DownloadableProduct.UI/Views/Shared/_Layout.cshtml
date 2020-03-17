@@ -49,9 +49,9 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/"> آی  گرافیک</a></li>
-                    <li><a href="#">درباره ما</a></li>
-                    <li><a href="#">تماس با ما</a></li>
-                    <li><a href="#">راهنما</a></li>
+                    <li><a href="/Home/AboutUs">درباره ما</a></li>
+                    <li><a href="/Home/ContactUs">تماس با ما</a></li>
+                    <li><a href="/Home/Help">راهنما</a></li>
                 </ul>                
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
@@ -109,25 +109,22 @@
                 <div class="col-md-3 col-xs-12">
                     <div class="footer__item">
                         <div class="footer__item__title">اطلاعات بیشتر درباره آی  گرافیک</div>
-                        <a class="footer__item__link" href="#">درباره ما</a>
-                        <a class="footer__item__link" href="#">تماس با ما</a>
-                        <a class="footer__item__link" href="#">راهنما</a>
+                        <a class="footer__item__link" href="/Home/AboutUs">درباره ما</a>
+                        <a class="footer__item__link" href="/Home/ContactUs">تماس با ما</a>
+                        <a class="footer__item__link" href="/Home/Help">راهنما</a>
                     </div>
                 </div>
                 <div class="col-md-3 col-xs-12">
                     <div class="footer__item">
                         <div class="footer__item__title">قوانین و مقررات در آی  گرافیک</div>
-                        <a class="footer__item__link" href="#">قوانین و مقررات</a>
-                        <a class="footer__item__link" href="#">تعرفه ها (ویژه طراحان)</a>
-                        <a class="footer__item__link" href="#">تعرفه ها (ویژه مشتریان)</a>
-                        <a class="footer__item__link" href="#">راهنما</a>
+                        <a class="footer__item__link" href="/Home/Policy">قوانین و مقررات</a>                                           
                     </div>
                 </div>
                 <div class="col-md-3 col-xs-12">
                     <div class="footer__item">
                         <div class="footer__item__title">ثبت نام در آی  گرافیک</div>
-                        <a class="footer__item__link" href="#">ورود</a>
-                        <a class="footer__item__link" href="#">ثبت نام</a>
+                        <a class="footer__item__link" href="/register">ورود</a>
+                        <a class="footer__item__link" href="/login">ثبت نام</a>
                     </div>
                 </div>
             </div>
