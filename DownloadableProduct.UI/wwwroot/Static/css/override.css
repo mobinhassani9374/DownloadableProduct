@@ -50,3 +50,31 @@
 .pb-30 {
     padding-bottom: 30px;
 }
+
+.panel-user {
+    height: 100px;
+    border-radius: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel {
+    border-radius: 0 !important;
+    margin: 0px  !important;
+}
+
+.panel-user__icon {
+    font-size: 50px;
+    margin-left: 10px;
+}
+
+.panel-user__title {
+    font-size: 20px;
+    font-family: MyriadArabic;
+}
+
+.panel-user__desc {
+    font-size: 16px;
+    font-family: MyriadArabic;
+}
