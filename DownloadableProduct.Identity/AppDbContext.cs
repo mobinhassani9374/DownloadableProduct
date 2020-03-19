@@ -16,6 +16,7 @@ namespace DownloadableProduct.Identity
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Checkout> Checkouts { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<CartBank> CartBanks { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -57,6 +58,13 @@ namespace DownloadableProduct.Identity
 
             payment.HasKey(c => c.Id);
             payment.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
+
+            var cartBank = builder.Entity<CartBank>();
+
+            cartBank.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
+            cartBank.Property(c => c.CartNumber).HasMaxLength(25).IsRequired(true);
+            cartBank.Property(c => c.BankName).HasMaxLength(500);
+            cartBank.Property(c => c.RejectMessage).HasMaxLength(550);
         }
     }
 }
