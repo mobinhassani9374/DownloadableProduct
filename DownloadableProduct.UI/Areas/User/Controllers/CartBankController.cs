@@ -12,6 +12,11 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         {
             _userService = userService;
         }
+        public IActionResult Index()
+        {
+            var result = _userService.GetAllCartBank(UserId);
+            return View(result.Data);
+        }
         public IActionResult Create()
         {
             return View();
@@ -24,6 +29,21 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             if (!cart.IsValidIranShetabNumber())
                 ModelState.AddModelError("", "کارت بانکی معتبر نمی باشد");
+            else
+            {
+                var result = _userService.CreateCartBank(new Domain.Dto.CartBank.CartBankCreateDto
+                {
+                    CartNumber = cart,
+                    UserId = UserId
+                });
+
+                if (result.Success)
+                {
+                    Swal(true, "کارت بانکی با موفقیت ثبت شد");
+                    return RedirectToAction(nameof(Index));
+                }
+                AddErrors(result);
+            }
 
             return View(model);
         }

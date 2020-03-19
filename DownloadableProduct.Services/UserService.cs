@@ -1,4 +1,5 @@
 ﻿using DownloadableProduct.DataAccess.Repositories;
+using DownloadableProduct.Domain.Dto.CartBank;
 using DownloadableProduct.Domain.Dto.Checkout;
 using DownloadableProduct.Domain.Dto.Pagination;
 using DownloadableProduct.Domain.Dto.Product;
@@ -20,16 +21,19 @@ namespace DownloadableProduct.Services
         private readonly UserRepository _userRepository;
         private readonly ProductRepository _productRepository;
         private readonly PaymentRepository _paymentRepository;
+        private readonly CartBankRepository _cartBankRepository;
         public UserService(PurchaseRepository purchaseRepository, CheckoutRepository checkoutRepository,
             UserRepository userRepository,
             ProductRepository productRepository,
-            PaymentRepository paymentRepository)
+            PaymentRepository paymentRepository,
+            CartBankRepository cartBankRepository)
         {
             _purchaseRepository = purchaseRepository;
             _checkoutRepository = checkoutRepository;
             _userRepository = userRepository;
             _productRepository = productRepository;
             _paymentRepository = paymentRepository;
+            _cartBankRepository = cartBankRepository;
         }
         public ServiceResult<int> PurchaseRequest(ParchaseRequestDto dto)
         {
@@ -324,6 +328,24 @@ namespace DownloadableProduct.Services
             var purchaseSucIds = purchaseSuc.Select(c => c.ProductId).ToList();
             var data = _productRepository.GetAllByIds(purchaseSucIds);
             return new ServiceResult<List<ProductDto>>(true, data.ToDto());
+        }
+        public ServiceResult CreateCartBank(CartBankCreateDto createDto)
+        {
+            _cartBankRepository.Insert(new Domain.Entities.CartBank
+            {
+                CartNumber = createDto.CartNumber,
+                UserId = createDto.UserId,
+                Status = CartBankStatus.Wating
+            });
+            if (_cartBankRepository.Save() > 0)
+                return ServiceResult.Okay();
+            return ServiceResult.Error();
+
+        }
+        public ServiceResult<List<CartBankDto>> GetAllCartBank(string userId)
+        {
+            var data = _cartBankRepository.GetAll(userId);
+            return new ServiceResult<List<CartBankDto>>(true, data.ToDto());
         }
     }
 }
