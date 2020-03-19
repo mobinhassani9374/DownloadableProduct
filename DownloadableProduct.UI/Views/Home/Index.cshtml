@@ -3,7 +3,7 @@
 @using DNTPersianUtils.Core
 @model PaginationDto<ProductDto>
 @{
-    ViewData["Title"] = "آی  گرافیک";
+    ViewData["Title"] = "آی گرافیک : i-graphic - کارت ویزیت بنر وکتور لایه باز";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="bread">
@@ -23,7 +23,7 @@
                 <div class="col-md-3 col-xs-12 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__img">
-                            <img src="~/Files/@product.SmallImage" class="img-responsive" />
+                            <img src="~/Files/@product.SmallImage" alt="@(product.Title) - آی گرافیک"  class="img-responsive" />
                             @* @product.User?.FullName *@
                         </div>
                         <div class="product__item__title">@product.Title</div>
@@ -42,12 +42,10 @@
                             @if (product.Price == 0)
                             {
                                 <a href="/Home/Detail/@product.Id" class="btn btn-block btn-success">مشاهده جزئیات و دانلود </a>
-
                             }
                             else
                             {
                                 <a href="/Home/Detail/@product.Id" class="btn btn-block btn-success">مشاهده جزئیات و خرید </a>
-
                             }
                         </div>
                     </div>
@@ -55,7 +53,6 @@
             }
         </div>
         @Html.Partial("_Pagination", Model)
-
     </div>
 </div>
 
