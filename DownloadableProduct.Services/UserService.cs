@@ -347,5 +347,19 @@ namespace DownloadableProduct.Services
             var data = _cartBankRepository.GetAll(userId);
             return new ServiceResult<List<CartBankDto>>(true, data.ToDto());
         }
+        public ServiceResult Delete(int id, string currentUserId)
+        {
+            var cartBank = _cartBankRepository.Get(id);
+            if (cartBank == null)
+                return ServiceResult.Error("EntityNotFoundByKey");
+            if (currentUserId == cartBank.UserId)
+            {
+                _cartBankRepository.Delete(cartBank);
+                if (_cartBankRepository.Save() > 0)
+                    return ServiceResult.Okay();
+                return ServiceResult.Error();
+            }
+            return ServiceResult.Error("CartBankHaveNotYou");
+        }
     }
 }

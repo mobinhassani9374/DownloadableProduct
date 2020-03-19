@@ -2,6 +2,7 @@
 using DownloadableProduct.UI.Models.CartBank;
 using Microsoft.AspNetCore.Mvc;
 using DNTPersianUtils.Core;
+using System.Linq;
 
 namespace DownloadableProduct.UI.Areas.User.Controllers
 {
@@ -46,6 +47,14 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
             }
 
             return View(model);
+        }
+        public IActionResult Delete(int id)
+        {
+            var result = _userService.Delete(id, UserId);
+            if (!result.Success)
+                Swal(false, result.Errors.FirstOrDefault()?.Code, true);
+            Swal(true, "عملیات با موفقیت انجام شد");
+            return RedirectToAction(nameof(Index));
         }
     }
 }

@@ -1,8 +1,82 @@
-﻿
+﻿@using DownloadableProduct.Domain.Dto.CartBank
+@using DNTPersianUtils.Core
+@using DownloadableProduct.Domain.Enums
+@model List<CartBankDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "لیست کارت های بانکی من - آی گرافیک";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
 }
 
-<h2>Index</h2>
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">آی  گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری</a></li>
+            <li class="active">لیست کارت های بانکی من</li>
+        </ol>
+    </div>
+</div>
 
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="panel panel-success">
+                    <div class="panel-heading">لیست کارت های بانکی من</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ردیف</th>
+                                    <th>شماره بانک </th>
+                                    <th>نام بانک</th>
+                                    <th>وضعیت</th>
+                                    <th>حذف</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.Count == 0)
+                                {
+                                    <tr>
+                                        <td colspan="5">تاکنون شماره کارتی وارد نکرده اید</td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                    <tr>
+                                        <td>@((i++).ToPersianNumbers())</td>
+                                        <td>@item.CartNumber</td>
+                                        <td>@item.BankName</td>
+                                        <td>
+                                            @if (item.Status == CartBankStatus.Confirmed)
+                                            {
+                                                <span class="label label-success">تایید شده</span>
+                                            }
+                                            else if (item.Status == CartBankStatus.Rejected)
+                                            {
+                                                <span class="label label-danger">رد شده</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-default">درحال بررسی اطلاعات توسط مدیر سایت</span>
+                                            }
+                                        </td>
+                                       
+                                        <td>
+                                            <a href="/User/CartBank/Delete/@(item.Id)" class="btn btn-danger">حذف</a>
+                                        </td>
+                                    </tr>
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

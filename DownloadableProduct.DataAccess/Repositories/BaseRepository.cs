@@ -18,6 +18,10 @@ namespace DownloadableProduct.DataAccess.Repositories
         {
             _context.Add(entity);
         }
+        public void Delete(TEntity entity)
+        {
+            _context.Remove(entity);
+        }
         public int InsertWithSave(TEntity entity)
         {
             _context.Add(entity);

@@ -71,6 +71,7 @@ namespace DownloadableProduct.UI.Controllers
             errors.Add("ProductNotForUser", "طرح متعلق به شما نیست");
             errors.Add("NoCreateCheckout","امکان ایجاد درخواست تسویه حساب ندارید زیرا یک تسویه حساب در حال بررسی دارید");
             errors.Add("CheckoutPriceInvalid", "مبلغ درخواست تسویه حساب بیش از موجودی شما ی باشد");
+            errors.Add("CartBankHaveNotYou", "کارت بانکی متعلق به شما نمی باشد");
         }
     }
 }
