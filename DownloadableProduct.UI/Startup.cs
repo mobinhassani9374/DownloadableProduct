@@ -24,7 +24,7 @@ namespace DownloadableProduct.UI
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(@".");
+                options.UseSqlServer(@"Data Source=.;Initial Catalog=DownloadableProduct;Integrated Security=True");
             });
 
             services.AddIdentity<User, IdentityRole>(options =>
@@ -68,6 +68,7 @@ namespace DownloadableProduct.UI
             services.AddScoped<PurchaseRepository>();
             services.AddScoped<CheckoutRepository>();
             services.AddScoped<PaymentRepository>();
+            services.AddScoped<CartBankRepository>();
             services.AddScoped<UserService>();
             services.AddScoped<AdminService>();
 

@@ -1,0 +1,52 @@
+﻿@using DownloadableProduct.UI.Models.CartBank
+@model CartBankCreateViewModel
+@using DNTPersianUtils.Core
+@{
+    ViewData["Title"] = "ایجاد کارت بانکی جدید - آی گرافیک";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">آی  گرافیک</a></li>
+            <li><a href="/User">ناحیه کاربری من</a></li>
+            <li class="active">ایجاد کارت بانکی جدید</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="login__title">ایجاد کارت بانکی جدید</div>
+                <div class="login__desc">
+                    کاربر گرامی شما از این طریق این بخش می توانید
+                     کارت بانکی جدید ثبت کنید
+                </div>
+                
+                <form method="post">
+                    @Html.AntiForgeryToken()
+                    @Html.Partial("ErrorPartialView")
+                    <div class="form-group">
+                        <input type="number" asp-for="Part1" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" asp-for="Part2" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" asp-for="Part3" required class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" asp-for="Part4" required class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success btn-block">ثبت کارت بانکی</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
