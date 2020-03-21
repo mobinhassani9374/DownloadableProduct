@@ -1,4 +1,5 @@
 ﻿using DownloadableProduct.DataAccess.Repositories;
+using DownloadableProduct.Domain.Dto.CartBank;
 using DownloadableProduct.Domain.Dto.Checkout;
 using DownloadableProduct.Domain.Dto.Product;
 using DownloadableProduct.Services.Mapping;
@@ -15,13 +16,16 @@ namespace DownloadableProduct.Services
         private readonly ProductRepository _productRepository;
         private readonly CheckoutRepository _checkoutRepository;
         private readonly UserRepository _userRepository;
+        private readonly CartBankRepository _cartBankRepository;
         public AdminService(ProductRepository productRepository,
             CheckoutRepository checkoutRepository,
-            UserRepository userRepository)
+            UserRepository userRepository,
+            CartBankRepository cartBankRepository)
         {
             _productRepository = productRepository;
             _checkoutRepository = checkoutRepository;
             _userRepository = userRepository;
+            _cartBankRepository = cartBankRepository;
         }
 
         public ServiceResult<List<CheckoutDto>> GetAllWatingCheckout()
@@ -101,6 +105,30 @@ namespace DownloadableProduct.Services
             }
 
             return result;
+        }
+        public ServiceResult<List<CartBankDto>> GetAllWatingCartBank()
+        {
+            var cartBanks = _cartBankRepository.GetAllWating();
+            var users = _userRepository.Get(cartBanks.Select(c => c.UserId).ToList());
+            return new ServiceResult<List<CartBankDto>>(true, cartBanks.ToDto(users));
+        }
+        public ServiceResult CartBankConfirm(int id, string bankName)
+        {
+            var cartBank = _cartBankRepository.Get(id);
+            cartBank.Status = Domain.Enums.CartBankStatus.Confirmed;
+            cartBank.BankName = bankName;
+            _cartBankRepository.Update(cartBank);
+            _cartBankRepository.Save();
+            return ServiceResult.Okay();
+        }
+        public ServiceResult CartBankReject(int id, string description)
+        {
+            var cartBank = _cartBankRepository.Get(id);
+            cartBank.Status = Domain.Enums.CartBankStatus.Rejected;
+            cartBank.RejectMessage = description;
+            _cartBankRepository.Update(cartBank);
+            _cartBankRepository.Save();
+            return ServiceResult.Okay();
         }
     }
 }
