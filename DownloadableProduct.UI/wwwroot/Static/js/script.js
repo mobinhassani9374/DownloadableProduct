@@ -55,24 +55,7 @@ function numberWithCommas(x) {
 }
 
 $(function () {
-  // $('form').validator({
-  //   validHandlers: {
-  //     '.customhandler': function (input) {
-  //       //may do some formatting before validating
-  //       input.val(input.val().toUpperCase());
-  //       //return true if valid
-  //       return input.val() === 'JQUERY' ? true : false;
-  //     }
-  //   }
-  // });
-
-  // $('form').submit(function (e) {
-  //   e.preventDefault();
-  //   if ($('form').validator('check') < 1) {
-  //     $('form').unbind('submit').submit();
-  //   }
-  //   else {
-  //     //toastr.error('در وارد کردن اطلاعات دقت کنید ')
-  //   }
-  // })
+  $('[data-role="confirm"]').on('click',function(){
+    return confirm('آیا مطمئن هستید ؟؟');
+  })
 });
