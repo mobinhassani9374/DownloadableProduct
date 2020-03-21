@@ -21,18 +21,19 @@ namespace DownloadableProduct.UI.Controllers
             _signInManagerService = signInManagerService;
         }
         [Route("/register")]
-        public IActionResult Register()
+        public IActionResult Register(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
                 return RedirectPermanent("/");
 
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Route("/register")]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl)
         {
             var result = await _userManagerService
                   .UserRegistration(model.ToUser(), model.Password, model.ConfirmPassword);
@@ -40,6 +41,8 @@ namespace DownloadableProduct.UI.Controllers
             if (result.Success)
             {
                 await _signInManagerService.SignIn(model.PhoneNumber, model.Password);
+                if (!string.IsNullOrEmpty(returnUrl))
+                    return RedirectPermanent(returnUrl);
                 return RedirectPermanent("/");
             }
 
@@ -49,24 +52,30 @@ namespace DownloadableProduct.UI.Controllers
         }
 
         [Route("/login")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
                 return RedirectPermanent("/");
 
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
         [Route("/login")]
         [ValidateAntiForgeryToken()]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             var result = await _signInManagerService
                 .SignIn(model.PhoneNumber, model.Password);
 
             if (result.Success)
+            {
+                if (!string.IsNullOrEmpty(returnUrl))
+                    return RedirectPermanent(returnUrl);
                 return RedirectPermanent("/");
+            }
+
 
             AddErrors(result);
 

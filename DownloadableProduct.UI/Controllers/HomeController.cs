@@ -41,7 +41,7 @@ namespace DownloadableProduct.UI.Controllers
             }
 
             if (!User.Identity.IsAuthenticated)
-                return RedirectPermanent("/auth");
+                return RedirectPermanent($"/auth?returnUrl=/Home/Detail/{id}");
 
             if (UserId == product.Data.UserId)
             {
@@ -51,8 +51,8 @@ namespace DownloadableProduct.UI.Controllers
 
             // بررسی میشود که آیا کاربر قبلا طرح را خریداری کرده است یا نه؟
             var purchaseSuc = _userService.GetAllSuccessPurchase(UserId);
-            
-            if(purchaseSuc.Data.Any(c => c.ProductId == product.Data.Id))
+
+            if (purchaseSuc.Data.Any(c => c.ProductId == product.Data.Id))
             {
                 Swal(false, "شما قبلا این طرح را خریداری کرده اید و در طرح های خریداری شده توسط من در ناحیه کاربری نیز قابل مشاهده می باشد");
                 return RedirectToAction(nameof(Detail), new { id = id });
@@ -74,8 +74,9 @@ namespace DownloadableProduct.UI.Controllers
             return RedirectToAction(nameof(Detail), new { id = id });
         }
         [Route("auth")]
-        public IActionResult Auth()
+        public IActionResult Auth(string returnUrl)
         {
+            ViewBag.ReturnUrl = returnUrl;
             return View();
         }
         public IActionResult Download(int id)
