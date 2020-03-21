@@ -391,5 +391,28 @@ namespace DownloadableProduct.Services
             var count = _purchaseRepository.CountSuccess(userId);
             return new ServiceResult<int>(true, count);
         }
+        public ServiceResult<List<BuyDto>> GetAllSell(string userId)
+        {
+            var purchases = _purchaseRepository.GetAllSuccess(userId);
+            var productGroup = purchases.GroupBy(c => c.Product).ToList();
+            var users = _userRepository.Get(purchases.Select(c => c.UserId).ToList());
+            var result = new List<BuyDto>();
+            productGroup.ForEach(c =>
+            {
+                result.Add(new BuyDto
+                {
+                    CountBuy = c.Count(),
+                    ProductPrice = c.Key.Price,
+                    ProductTitle = c.Key.Title,
+                    Users = c.Select(i => new BuyUserDto
+                    {
+                        UserId = i.UserId,
+                        BuyDate = i.CreateDate,
+                        UserFullName = users.FirstOrDefault(o => o.Id == i.UserId)?.FullName
+                    }).ToList()
+                });
+            });
+            return new ServiceResult<List<BuyDto>>(true, result);
+        }
     }
 }

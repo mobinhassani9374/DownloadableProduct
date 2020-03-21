@@ -215,6 +215,11 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
             var data = _userService.Buy(UserId);
             return View(data.Data);
         }
+        public IActionResult Sell()
+        {
+            var result = _userService.GetAllSell(UserId);
+            return View(result.Data);
+        }
         public IActionResult DownloadBuy(int id)
         {
             var purchaseSuc = _purchaseRepository.GetAllSuccess(UserId);
