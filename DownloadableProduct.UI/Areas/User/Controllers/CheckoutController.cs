@@ -27,6 +27,9 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         {
             var wallet = _userService.GetWallet(UserId).Data;
             ViewBag.Wallet = wallet.ToString("#,##");
+
+            var cartBanks = _userService.GetAllCartBankSucess(UserId);
+            ViewBag.CartBanks = cartBanks.Data;
             return View();
         }
 
@@ -44,6 +47,10 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             var wallet = _userService.GetWallet(UserId).Data;
             ViewBag.Wallet = wallet.ToString("#,##");
+
+            var cartBanks = _userService.GetAllCartBankSucess(UserId);
+            ViewBag.CartBanks = cartBanks.Data;
+
             AddErrors(result);
 
             return View(model);
