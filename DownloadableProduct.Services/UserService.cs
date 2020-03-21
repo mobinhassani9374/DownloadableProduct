@@ -366,5 +366,30 @@ namespace DownloadableProduct.Services
             var data = _cartBankRepository.GetAllCartBankSucess(userId);
             return new ServiceResult<List<CartBankDto>>(true, data.ToDto());
         }
+        public ServiceResult<int> CountProductConfirm(string userId)
+        {
+            var count = _productRepository.CountConfirmed(userId);
+            return new ServiceResult<int>(true, count);
+        }
+        public ServiceResult<int> CountProduct(string userId)
+        {
+            var count = _productRepository.Count(userId);
+            return new ServiceResult<int>(true, count);
+        }
+        public ServiceResult<long> GetIncome(string userId)
+        {
+            long sum = 0;
+            var purchases = _purchaseRepository.GetAllSuccess(userId);
+            purchases.ForEach(c =>
+            {
+                sum += (c.Product.Price * 70) / 100;
+            });
+            return new ServiceResult<long>(true, sum);
+        }
+        public ServiceResult<int> CountBuy(string userId)
+        {
+            var count = _purchaseRepository.CountSuccess(userId);
+            return new ServiceResult<int>(true, count);
+        }
     }
 }

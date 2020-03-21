@@ -1,7 +1,12 @@
-﻿
+﻿@using DNTPersianUtils.Core
 @{
     ViewData["Title"] = "ناحیه کاربری - آی گرافیک";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var wallet = (string)ViewBag.Wallet;
+    var countProductConfirm = (string)ViewBag.CountProductConfirm;
+    var countProduct = (string)ViewBag.CountProduct;
+    var income = (string)ViewBag.Income;
+    var countBuy = (string)ViewBag.CountBuy;
 }
 
 <div class="bread">
@@ -22,7 +27,7 @@
                         <i class="fa fa-snowflake-o panel-user__icon" aria-hidden="true"></i>
                         <div>
                             <p class="panel-user__title">موجودی کیف پول</p>
-                            <p class="panel-user__desc">124,125  تومان</p>
+                            <p class="panel-user__desc">@(wallet.ToPersianNumbers())  تومان</p>
                         </div>
                     </div>
                 </div>
@@ -32,8 +37,8 @@
                     <div class="panel-heading panel-user">
                         <i class="fa fa-snowflake-o panel-user__icon" aria-hidden="true"></i>
                         <div>
-                            <p class="panel-user__title">موجودی کیف پول</p>
-                            <p class="panel-user__desc">124,125  تومان</p>
+                            <p class="panel-user__title">تعداد طرح های تایید شده</p>
+                            <p class="panel-user__desc">@(countProductConfirm.ToPersianNumbers())</p>
                         </div>
                     </div>
                 </div>
@@ -43,8 +48,8 @@
                     <div class="panel-heading panel-user">
                         <i class="fa fa-snowflake-o panel-user__icon" aria-hidden="true"></i>
                         <div>
-                            <p class="panel-user__title">موجودی کیف پول</p>
-                            <p class="panel-user__desc">124,125  تومان</p>
+                            <p class="panel-user__title">تعداد فروش من</p>
+                            <p class="panel-user__desc">@(countBuy.ToPersianNumbers())</p>
                         </div>
                     </div>
                 </div>
@@ -54,8 +59,8 @@
                     <div class="panel-heading panel-user">
                         <i class="fa fa-snowflake-o panel-user__icon" aria-hidden="true"></i>
                         <div>
-                            <p class="panel-user__title">موجودی کیف پول</p>
-                            <p class="panel-user__desc">124,125  تومان</p>
+                            <p class="panel-user__title">درآمد من از آی گرافیک</p>
+                            <p class="panel-user__desc">@(income.ToPersianNumbers())  تومان</p>
                         </div>
                     </div>
                 </div>

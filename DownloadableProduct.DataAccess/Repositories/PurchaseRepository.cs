@@ -18,7 +18,19 @@ namespace DownloadableProduct.DataAccess.Repositories
         }
         public List<Purchase> GetAllSuccess(string userId)
         {
-            return _context.Purchases.Where(c => c.UserId.Equals(userId) && c.IsSuccess).ToList();
+            return _context
+                .Purchases
+                .Include(c => c.Product)
+                .Where(c => c.UserId.Equals(userId) && c.IsSuccess)
+                .ToList();
+        }
+        public int CountSuccess(string userId)
+        {
+            return _context
+                .Purchases
+                .Include(c => c.Product)
+                .Where(c => c.UserId.Equals(userId) && c.IsSuccess)
+                .Count();
         }
     }
 }

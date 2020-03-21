@@ -25,7 +25,7 @@ namespace DownloadableProduct.DataAccess.Repositories
         {
             return _context
                 .Products
-                .Where(c => productIds.Any(i=>i==c.Id))
+                .Where(c => productIds.Any(i => i == c.Id))
                 .ToList();
         }
         public List<Product> GetAllAvailable()
@@ -51,6 +51,20 @@ namespace DownloadableProduct.DataAccess.Repositories
                 .Where(c => c.Status.Equals(ProductStatus.Confirmed))
                 .OrderByDescending(c => c.Id)
                 .ToPaginated(pageNumber, pageSize);
+        }
+        public int CountConfirmed(string userId)
+        {
+            return _context
+                  .Products
+                  .Where(c => c.Status == ProductStatus.Confirmed && c.UserId.Equals(userId))
+                  .Count();
+        }
+        public int Count(string userId)
+        {
+            return _context
+                  .Products
+                  .Where(c => c.UserId.Equals(userId))
+                  .Count();
         }
     }
 }
