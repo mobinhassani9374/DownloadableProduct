@@ -7,9 +7,17 @@
     {
         title = "خطا";
     }
-    ViewData["Title"] = title;
+    ViewData["Title"] = title + " - آی گرافیک" ;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<meta name="description" content="@(title)">
+<meta name="keywords" content="@(title) , آی گرافیک">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="@(title)">
+<meta property="og:url" content="http://i-graphic.ir/detail/@(Model.Id)">
+<meta property="og:image" content="~/Files/@Model.Image">
 
 <div class="bread">
     <div class="container">
@@ -21,7 +29,6 @@
 </div>
 
 <div class="container">
-
     <div class="row">
         <div class="product__detail">
             <div class="panel panel-default">
@@ -54,7 +61,7 @@
                             </div>
                             <div>پسوند فایل : @Model.Extension.ToPersianNumbers()</div>
                             <div>ابعاد : @Model.Dimensions.ToPersianNumbers()</div>
-                            <div>طراح : <a href="/profle/@Model.UserId">@Model.User?.FullName</a></div>
+                            <div>طراح : <a>@Model.User?.FullName</a></div>
                             @if (Model.Price == 0 && Model.FileLength.HasValue)
                             {
                                 <div>حجم فایل : @DownloadableProduct.Utillity.FileUtility.GetLength(Model.FileLength.Value).ToPersianNumbers()</div>
@@ -81,4 +88,3 @@
         </div>
     </div>
 </div>
-
