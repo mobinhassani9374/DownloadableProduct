@@ -21,5 +21,12 @@ namespace DownloadableProduct.DataAccess.Repositories
         {
             return _context.CartBanks.Where(c => c.Status == Domain.Enums.CartBankStatus.Wating).ToList();
         }
+        public List<CartBank> GetAllCartBankSucess(string userId)
+        {
+            return _context
+                .CartBanks
+                .Where(c => c.UserId.Equals(userId) && c.Status == Domain.Enums.CartBankStatus.Confirmed)
+                .ToList();
+        }
     }
 }

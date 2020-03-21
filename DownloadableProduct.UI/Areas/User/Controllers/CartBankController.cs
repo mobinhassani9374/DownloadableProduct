@@ -20,6 +20,8 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         }
         public IActionResult Create()
         {
+            var cartBanks = _userService.GetAllCartBankSucess(UserId);
+            ViewBag.CartBanks = cartBanks.Data;
             return View();
         }
         [HttpPost]
@@ -45,6 +47,9 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
                 }
                 AddErrors(result);
             }
+
+            var cartBanks = _userService.GetAllCartBankSucess(UserId);
+            ViewBag.CartBanks = cartBanks.Data;
 
             return View(model);
         }

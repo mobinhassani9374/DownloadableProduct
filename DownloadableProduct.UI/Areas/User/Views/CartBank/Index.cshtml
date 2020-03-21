@@ -68,7 +68,7 @@
                                             <td>
                                                 @if (item.Status == CartBankStatus.Rejected)
                                                 {
-                                                    <span style="color:red;">@item.RejectMessage.ToPersianNumbers()</span>
+                                                    <span style="color:red;">@item.RejectMessage?.ToPersianNumbers()</span>
                                                 }
                                                 else
                                                 {

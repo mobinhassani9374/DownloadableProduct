@@ -361,5 +361,10 @@ namespace DownloadableProduct.Services
             }
             return ServiceResult.Error("CartBankHaveNotYou");
         }
+        public ServiceResult<List<CartBankDto>> GetAllCartBankSucess(string userId)
+        {
+            var data = _cartBankRepository.GetAllCartBankSucess(userId);
+            return new ServiceResult<List<CartBankDto>>(true, data.ToDto());
+        }
     }
 }
