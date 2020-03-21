@@ -8,7 +8,7 @@
     <div class="container">
         <ol class="breadcrumb">
             <li><a href="/">آی  گرافیک</a></li>
-            <li class="active">احراز حویت</li>
+            <li class="active">احراز هویت</li>
         </ol>
     </div>
 </div>
@@ -22,7 +22,7 @@
                     <h4 class="text-center text-primary">عضو آی   گرافیک هستید ؟؟</h4>
                     <p class="text-center">برای تکمیل فرآیند خرید خود وارد شوید</p>
                     <div>
-                        <a href="/login" class="btn btn-primary">ورود به آی  گرافیک</a>
+                        <a href="/login?returnUrl=@ViewBag.ReturnUrl" class="btn btn-primary">ورود به آی  گرافیک</a>
                     </div>
                 </div>
                 <div class="col-md-6 text-center">
@@ -30,7 +30,7 @@
                     <h4 class="text-center text-success">تازه وارد هستید ؟؟</h4>
                     <p class="text-center">برای تکمیل فرآیند خرید خود ثبت نام کنید</p>
                     <div>
-                        <a href="/register" class="btn btn-success"> ثبت نام در آی  گرافیک</a>
+                        <a href="/register?returnUrl=@ViewBag.ReturnUrl" class="btn btn-success"> ثبت نام در آی  گرافیک</a>
                     </div>
                 </div>
             </div>            
