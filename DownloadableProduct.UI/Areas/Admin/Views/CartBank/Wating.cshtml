@@ -1,0 +1,58 @@
+﻿@using DownloadableProduct.Domain.Dto.CartBank
+@using DNTPersianUtils.Core
+@model List<CartBankDto>
+@{
+    ViewData["Title"] = "کارت های بانکی در حال انتظار";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="bread">
+    <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="/">آی  گرافیک</a></li>
+            <li><a href="/User">پنل مدیریتی</a></li>
+            <li class="active">کارت های بانکی در حال انتظار</li>
+        </ol>
+    </div>
+</div>
+
+<div class="login">
+    <div class="container">
+        <div class="row">
+            <div class="table-responsive">
+                <div class="panel panel-success">
+                    <div class="panel-heading">کارت های بانکی در حال انتظار</div>
+                    <div class="panel-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>کاربر</th>
+                                    <th>شماره کارت</th>
+                                    <th>تایید</th>
+                                    <th>رد</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id.ToPersianNumbers()</td>
+                                        <td>@item.User?.FullName.ToPersianNumbers()</td>
+                                        <td>@item.CartNumber.ToPersianNumbers()</td>
+                                        <td>
+                                            <a class="btn btn-success" href="/Admin/CartBank/Confirm/@item.Id">تایید</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger" href="/Admin/CartBank/Reject/@item.Id">رد</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,7 @@ namespace DownloadableProduct.Domain.Dto.CartBank
         public string CartNumber { get; set; }
         public UserDto User { get; set; }
         public string BankName { get; set; }
+        public string RejectMessage { get; set; }
         public Enums.CartBankStatus Status { get; set; }
     }
 }
