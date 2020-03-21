@@ -11,6 +11,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<meta name="description" content="@(title)">
+<meta name="keywords" content="@(title) , آی گرافیک">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="profile">
+<meta property="og:title" content="@(title)">
+<meta property="og:url" content="http://i-graphic.ir/detail/@(Model.Id)">
+<meta property="og:image" content="~/Files/@Model.Image">
+
 <div class="bread">
     <div class="container">
         <ol class="breadcrumb">
