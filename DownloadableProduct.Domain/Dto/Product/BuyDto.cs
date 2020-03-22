@@ -15,6 +15,6 @@ namespace DownloadableProduct.Domain.Dto.Product
     {
         public string UserId { get; set; }
         public string UserFullName { get; set; }
-        public DateTime BuyDate { get; set; }
+        public string BuyDate { get; set; }
     }
 }

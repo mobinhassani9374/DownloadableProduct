@@ -12,6 +12,7 @@ using DownloadableProduct.Utillity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DNTPersianUtils.Core;
 
 namespace DownloadableProduct.Services
 {
@@ -427,7 +428,7 @@ namespace DownloadableProduct.Services
                     Users = c.Select(i => new BuyUserDto
                     {
                         UserId = i.UserId,
-                        BuyDate = i.CreateDate,
+                        BuyDate = i.CreateDate.ToLongPersianDateTimeString().ToPersianNumbers(),
                         UserFullName = users.FirstOrDefault(o => o.Id == i.UserId)?.FullName
                     }).ToList()
                 });
