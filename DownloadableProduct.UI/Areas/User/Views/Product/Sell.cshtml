@@ -47,7 +47,7 @@
                                 {
                                     @foreach (var item in Model)
                                     {
-                                        <tr data-role="@(Html.Raw(new HtmlString(JsonConvert.SerializeObject(item.Users))))">
+                                        <tr data-role='@(Html.Raw(new HtmlString(JsonConvert.SerializeObject(item.Users))))'>
                                             <td>@((i++).ToPersianNumbers())</td>
 
                                             <td>@item.ProductTitle.ToPersianNumbers()</td>
@@ -65,17 +65,56 @@
                         </table>
                     </div>
                 </div>
-            </div>ٌ
+            </div>
         </div>
     </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">جزئیات فروش</h4>
+      </div>
+      <div class="modal-body">
+          <div class="table-responsive">
+              <table class="table">
+                  <thead>
+                      <tr>                         
+                          <th>نام خریدار</th>
+                           <th>تاریخ</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">بستن</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 
 <script>
     $(function(){
         $('[data-role="click"]').on('click',function() {
-           var model =  $(this).closest('tr').attr('data-role');
-           debugger
+           var model =JSON.parse($(this).closest('tr').attr('data-role'))        
            console.log(model);
+           var txt = '';
+            model.map(function(item) {
+                console.log(item)
+                txt += '<tr><td>'+item.UserFullName+'</td><td>'+item.BuyDate+'</td></tr>'
+            })
+           $('[class="modal-body"] > .table-responsive > .table > tbody').html(txt);
+        $('#myModal').modal('show');
         })
     })
 </script>
