@@ -146,6 +146,10 @@
     text-align: center;
 }
 
+.box > img {
+    margin: 0 auto 15px;
+}
+
 .box__title {
     color: green;
     font-size: 15px;
