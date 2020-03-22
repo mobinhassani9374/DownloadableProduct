@@ -1,4 +1,5 @@
-﻿using DownloadableProduct.Domain.Entities;
+﻿using DownloadableProduct.DataAccess.Pagination;
+using DownloadableProduct.Domain.Entities;
 using DownloadableProduct.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -31,6 +32,15 @@ namespace DownloadableProduct.DataAccess.Repositories
                 .Include(c => c.Product)
                 .Where(c => c.UserId.Equals(userId) && c.IsSuccess)
                 .Count();
+        }
+        public Domain.Dto.Pagination.PaginationDto<Purchase> GetAllForUser(int pageNumber, int pageSize, string userId)
+        {
+            return _context
+                  .Purchases
+                  .Include(c => c.Product)
+                  .Where(c => c.UserId.Equals(userId))
+                  .OrderByDescending(c => c.CreateDate)
+               .ToPaginated(pageNumber, pageSize);
         }
     }
 }
