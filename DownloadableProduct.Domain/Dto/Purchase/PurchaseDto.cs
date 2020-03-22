@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DownloadableProduct.Domain.Dto.Product;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,5 +11,6 @@ namespace DownloadableProduct.Domain.Dto.Purchase
         public string UserId { get; set; }
         public DateTime CreateDate { get; set; }
         public bool IsSuccess { get; set; }
+        public ProductDto Product { get; set; }
     }
 }

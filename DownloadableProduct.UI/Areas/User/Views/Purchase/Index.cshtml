@@ -1,0 +1,81 @@
+﻿@using DownloadableProduct.Domain.Dto.Pagination
+@using DownloadableProduct.Domain.Dto.Purchase
+@using DNTPersianUtils.Core
+@model PaginationDto<PurchaseDto>
+    @{
+        ViewData["Title"] = "درخواست های خرید من - آی گرافیک";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        int i = 1;
+        if (Model.PageNumber > 1)
+        {
+            i = (Model.PageNumber - 1) * Model.PageSize + 1;
+        }
+    }
+    <div class="bread">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a href="/">آی  گرافیک</a></li>
+                <li><a href="/user">ناحیه کاربری</a></li>
+                <li class="active">درخواست های خرید من</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="login">
+        <div class="container">
+            <div class="row">
+                <div class="table-responsive">
+                    <div class="panel panel-success">
+                        <div class="panel-heading">درخواست های خرید من</div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ردیف</th>
+                                        <th>عنوان طرح </th>
+                                        <th>مبلغ طرح </th>
+                                        <th>تاریخ درخواست</th>
+                                        <th>خریداری شده</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Data.Count == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="5">تاکنون طرحی بارگذاری نکرده اید</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        @foreach (var item in Model.Data)
+                                        {
+                                        <tr>
+                                            <td>@((i++).ToPersianNumbers())</td>
+                                            <td>@item.Product?.Title?.ToPersianNumbers()</td>
+                                            <td>@item.Product?.Price.ToString("#,##")?.ToPersianNumbers() تومان</td>
+                                            <td>@item.CreateDate.ToLongPersianDateTimeString().ToPersianNumbers()</td>
+                                            <td>
+                                                @if (item.IsSuccess)
+                                                {
+                                                    <label>خریداری شده</label>
+                                                }
+                                                else
+                                                {
+                                                    <label>خریداری نشده</label>
+                                                }
+                                            </td>
+
+                                        </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                @Html.Partial("_Pagination", Model)
+            </div>
+        </div>
+    </div>
+

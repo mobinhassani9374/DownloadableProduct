@@ -1,4 +1,5 @@
-﻿using DownloadableProduct.Domain.Dto.Purchase;
+﻿using DownloadableProduct.Domain.Dto.Pagination;
+using DownloadableProduct.Domain.Dto.Purchase;
 using DownloadableProduct.Domain.Dto.User;
 using DownloadableProduct.Domain.Entities;
 using System;
@@ -33,7 +34,19 @@ namespace DownloadableProduct.Services.Mapping
                 CreateDate = source.CreateDate,
                 IsSuccess = source.IsSuccess,
                 ProductId = source.ProductId,
-                UserId = source.UserId
+                UserId = source.UserId,
+                Product = source.Product.ToDto()
+            };
+        }
+        public static PaginationDto<PurchaseDto> ToDto(this PaginationDto<Purchase> sources)
+        {
+            return new PaginationDto<PurchaseDto>
+            {
+                Count = sources.Count,
+                PageCount = sources.PageCount,
+                PageNumber = sources.PageNumber,
+                PageSize = sources.PageSize,
+                Data = sources.Data.ToDto()
             };
         }
     }

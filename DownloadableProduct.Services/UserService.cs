@@ -173,6 +173,11 @@ namespace DownloadableProduct.Services
             }
             return new ServiceResult<PaginationDto<PaymentDto>>(true, dto);
         }
+        public ServiceResult<PaginationDto<PurchaseDto>> GetAllPurchaseForUser(int pageNumber, int pageSize, string userId)
+        {
+            var data = _purchaseRepository.GetAllForUser(pageNumber, pageSize, userId);
+            return new ServiceResult<PaginationDto<PurchaseDto>>(true, data.ToDto());
+        }
 
         public ServiceResult<ProductDto> GetProduct(int id)
         {
