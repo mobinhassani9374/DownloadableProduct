@@ -47,7 +47,7 @@
                                 {
                                     @foreach (var item in Model)
                                     {
-                                        <tr data-role=@(Html.Raw(new HtmlString(JsonConvert.SerializeObject(item.Users)))) ;>
+                                        <tr data-role="@(Html.Raw(new HtmlString(JsonConvert.SerializeObject(item.Users))))">
                                             <td>@((i++).ToPersianNumbers())</td>
 
                                             <td>@item.ProductTitle.ToPersianNumbers()</td>

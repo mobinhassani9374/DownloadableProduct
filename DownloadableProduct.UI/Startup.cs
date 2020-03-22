@@ -24,7 +24,7 @@ namespace DownloadableProduct.UI
         {
             services.AddDbContext<AppDbContext>(options =>
             {
-                options.UseSqlServer(@"Data Source=185.51.200.186\SQL2014,2014;Initial Catalog=DownloadableProduct;Persist Security Info=True;User ID=downloadable_mobin; Password=Whh&872g; MultipleActiveResultSets=True");
+                options.UseSqlServer(@"Data Source=.;Initial Catalog=DownloadableProduct;Integrated Security=True");
             });
 
             services.AddIdentity<User, IdentityRole>(options =>
