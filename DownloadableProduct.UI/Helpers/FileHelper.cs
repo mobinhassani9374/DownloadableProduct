@@ -13,7 +13,7 @@ namespace DownloadableProduct.UI.Helpers
         {
             _env = env;
         }
-        public ServiceResult<string> Upload(IFormFile formFile)
+        public ServiceResult<string> Upload(IFormFile formFile, long length = 102400)
         {
             var result = new ServiceResult<string>(true);
 
@@ -21,19 +21,24 @@ namespace DownloadableProduct.UI.Helpers
                 result.AddError("ImageIsNull");
             else
             {
-                var extension = System.IO.Path.GetExtension(formFile.FileName);
-                var fileName = $"{Guid.NewGuid()}{extension}";
+                if (formFile.Length > length)
+                    result.AddError("FileIsLarger");
+                else
+                {
+                    var extension = System.IO.Path.GetExtension(formFile.FileName);
+                    var fileName = $"{Guid.NewGuid()}{extension}";
 
-                var path = System.IO.Path.Combine(_env.WebRootPath, "Files", fileName);
+                    var path = System.IO.Path.Combine(_env.WebRootPath, "Files", fileName);
 
-                var fileStream = new System.IO.FileStream(path,
-                    System.IO.FileMode.Create);
+                    var fileStream = new System.IO.FileStream(path,
+                        System.IO.FileMode.Create);
 
-                formFile.CopyTo(fileStream);
+                    formFile.CopyTo(fileStream);
 
-                fileStream.Close();
+                    fileStream.Close();
 
-                result.Data = fileName;
+                    result.Data = fileName;
+                }
             }
 
             return result;
