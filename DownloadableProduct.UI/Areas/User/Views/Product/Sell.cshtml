@@ -1,6 +1,7 @@
 ﻿@using DownloadableProduct.Domain.Dto.Product
 @using DNTPersianUtils.Core
-@using DownloadableProduct.Domain.Enums
+@using Microsoft.AspNetCore.Html
+@using Newtonsoft.Json
 @model List<BuyDto>
 @{
     ViewData["Title"] = "فروش های من - آی گرافیک";
@@ -46,16 +47,16 @@
                                 {
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
+                                        <tr data-role=@(Html.Raw(new HtmlString(JsonConvert.SerializeObject(item.Users)))) ;>
                                             <td>@((i++).ToPersianNumbers())</td>
-                                            
+
                                             <td>@item.ProductTitle.ToPersianNumbers()</td>
                                             <td>
                                                 @item.ProductPrice.ToString("#,##").ToPersianNumbers() تومان
                                             </td>
                                             <td>@item.CountBuy.ToPersianNumbers()</td>
                                             <td>
-                                               <button>مشاهه</button>
+                                                <button>مشاهه</button>
                                             </td>
                                         </tr>
                                     }
