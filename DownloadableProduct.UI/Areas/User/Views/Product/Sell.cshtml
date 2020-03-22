@@ -56,17 +56,26 @@
                                             </td>
                                             <td>@item.CountBuy.ToPersianNumbers()</td>
                                             <td>
-                                                <button>مشاهه</button>
+                                                <button data-role="click" class="btn btn-success">مشاهده</button>
                                             </td>
                                         </tr>
                                     }
                                 }
-
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
+            </div>ٌ
         </div>
     </div>
 </div>
+
+<script>
+    $(function(){
+        $('[data-role="click"]').on('click',function() {
+           var model =  $(this).closest('tr').attr('data-role');
+           debugger
+           console.log(model);
+        })
+    })
+</script>
