@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.IO;
 
 namespace DownloadableProduct.UI.Helpers
 {
