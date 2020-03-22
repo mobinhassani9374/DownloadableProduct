@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DownloadableProduct.Domain.Enums;
+using System;
 
 namespace DownloadableProduct.Domain.Entities
 {
@@ -8,7 +9,7 @@ namespace DownloadableProduct.Domain.Entities
         public string UserId { get; set; }
         public DateTime? ResponseDate { get; set; }
         public long Price { get; set; }
-        public int Type { get; set; }
+        public PaymentType Type { get; set; }
         public int ValueId { get; set; }
         public bool IsSuccess { get; set; }
     }

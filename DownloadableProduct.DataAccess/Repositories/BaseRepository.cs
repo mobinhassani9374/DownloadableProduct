@@ -36,6 +36,10 @@ namespace DownloadableProduct.DataAccess.Repositories
         {
             return _context.Set<TEntity>().FirstOrDefault(c => c.Id == id);
         }
+        public virtual List<TEntity> Get(List<int> ids)
+        {
+            return _context.Set<TEntity>().Where(c => ids.Any(i => i == c.Id)).ToList();
+        }
         public int Save()
         {
             return _context.SaveChanges();

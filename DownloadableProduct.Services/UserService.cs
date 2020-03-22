@@ -2,6 +2,7 @@
 using DownloadableProduct.Domain.Dto.CartBank;
 using DownloadableProduct.Domain.Dto.Checkout;
 using DownloadableProduct.Domain.Dto.Pagination;
+using DownloadableProduct.Domain.Dto.Payment;
 using DownloadableProduct.Domain.Dto.Product;
 using DownloadableProduct.Domain.Dto.Purchase;
 using DownloadableProduct.Domain.Dto.User;
@@ -50,7 +51,7 @@ namespace DownloadableProduct.Services
             {
                 CreateData = DateTime.Now,
                 Price = dto.Price,
-                Type = 1,
+                Type = PaymentType.BuyProduct,
                 UserId = dto.UserId,
                 ValueId = purchaseID,
                 IsSuccess = false
@@ -159,6 +160,20 @@ namespace DownloadableProduct.Services
             var data = _checkoutRepository.GetAllForUser(pageNumber, pageSize, userId);
             return new ServiceResult<PaginationDto<CheckoutDto>>(true, data.ToDto());
         }
+
+        public ServiceResult<PaginationDto<PaymentDto>> GetAllPaymentForUser(int pageNumber, int pageSize, string userId)
+        {
+            var data = _paymentRepository.GetAllForUser(pageNumber, pageSize, userId);
+            var dto = data.ToDto();
+            var products = _productRepository.Get(data.Data.Select(c => c.Id).ToList()).ToDto();
+            foreach (var item in dto.Data)
+            {
+                if (item.Type == PaymentType.BuyProduct)
+                    item.Product = products.FirstOrDefault(i => i.Id == item.ValueId);
+            }
+            return new ServiceResult<PaginationDto<PaymentDto>>(true, dto);
+        }
+
         public ServiceResult<ProductDto> GetProduct(int id)
         {
             var result = new ServiceResult<ProductDto>(true);
