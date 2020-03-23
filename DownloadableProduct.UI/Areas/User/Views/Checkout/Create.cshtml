@@ -48,9 +48,16 @@
                             <label>  یک کارت بانکی را انتخاب نمایید : </label>
                             @foreach (var item in cartBanks)
                             {
-                               <div>
-                                    <input type="radio" name="cartNumber" value="@item.Id" /><label>@(item.CartNumber?.ToPersianNumbers()) - @(item.BankName?.ToPersianNumbers())</label>
-                               </div>
+                            <div>
+                                @if (Model !=null && item.Id == Model.CartNumber)
+                                {
+                                    <input checked required type="radio" name="cartNumber" value="@item.Id" /><label>@(item.CartNumber?.ToPersianNumbers()) - @(item.BankName?.ToPersianNumbers())</label>
+                                }
+                                else
+                                {
+                                    <input required type="radio" name="cartNumber" value="@item.Id" /><label>@(item.CartNumber?.ToPersianNumbers()) - @(item.BankName?.ToPersianNumbers())</label>
+                                }
+                            </div>
                             }
                         </div>
                     }

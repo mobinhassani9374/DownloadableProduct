@@ -53,6 +53,8 @@ namespace DownloadableProduct.Identity
 
             checkout.Property(c => c.UserId).HasMaxLength(60).IsRequired(true);
             checkout.Property(c => c.RejectMessage).HasMaxLength(550);
+            checkout.Property(c => c.CartNumber).HasMaxLength(25).IsRequired(true);
+            checkout.Property(c => c.BankName).HasMaxLength(500);
 
             var payment = builder.Entity<Payment>();
 

@@ -11,5 +11,7 @@ namespace DownloadableProduct.Domain.Entities
         public CheckoutStatus Status { get; set; }
         public string UserId { get; set; }
         public string RejectMessage { get; set; }
+        public string CartNumber { get; set; }
+        public string BankName { get; set; }
     }
 }

@@ -64,24 +64,49 @@ namespace DownloadableProduct.Services
         }
         public ServiceResult CheckoutRequest(CheckoutRequestDto dto)
         {
-            var count = _checkoutRepository.CountWatingForUser(dto.UserId);
-
-            if (count == 0)
+            if (dto.Price >= 5000)
             {
-                var wallet = _userRepository.GetWallet(dto.UserId);
-                if (dto.Price > wallet)
-                    return ServiceResult.Error("CheckoutPriceInvalid");
-                var entity = dto.ToEntity();
+                var cartNumber = _cartBankRepository.Get(dto.CartNumber);
 
-                entity.CreateDate = DateTime.Now;
-                entity.Status = CheckoutStatus.Wating;
+                if (cartNumber == null)
+                    return ServiceResult.Error("CartNumberNotFound");
+                else
+                {
+                    if (cartNumber.UserId != dto.UserId)
+                        return ServiceResult.Error("CartNUmberHaveNotUser");
+                    else
+                    {
+                        if (cartNumber.Status != CartBankStatus.Confirmed)
+                            return ServiceResult.Error("CartNumberIsNotConfirmed");
+                        else
+                        {
+                            var count = _checkoutRepository.CountWatingForUser(dto.UserId);
 
-                _checkoutRepository.Insert(entity);
+                            if (count == 0)
+                            {
+                                var wallet = _userRepository.GetWallet(dto.UserId);
+                                if (dto.Price > wallet)
+                                    return ServiceResult.Error("CheckoutPriceInvalid");
+                                var entity = dto.ToEntity();
 
-                _checkoutRepository.Save();
+                                entity.CreateDate = DateTime.Now;
+                                entity.Status = CheckoutStatus.Wating;
+                                entity.BankName = cartNumber.BankName;
+                                entity.CartNumber = cartNumber.CartNumber;
 
-                return ServiceResult.Okay();
+                                _checkoutRepository.Insert(entity);
+
+                                _checkoutRepository.Save();
+
+                                return ServiceResult.Okay();
+                            }
+                        }
+                    }
+                }
             }
+            else
+                return ServiceResult.Error("Checkout5000");
+            
 
             return ServiceResult.Error("NoCreateCheckout");
         }

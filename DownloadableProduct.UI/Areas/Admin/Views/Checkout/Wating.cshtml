@@ -30,6 +30,8 @@
                                     <th>کاربر</th>
                                     <th>مبلغ درخواستی</th>
                                     <th>موجودی کیف پول کاربر</th>
+                                    <th>نام بانک</th>
+                                    <th>شماره کارت</th>
                                     <th>تایید</th>
                                     <th>رد</th>
                                 </tr>
@@ -37,18 +39,20 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr>
-                                    <td>@item.Id.ToPersianNumbers()</td>
-                                    <td>@item.User?.FullName.ToPersianNumbers()</td>
-                                    <td>@item.Price.ToString("#,##").ToPersianNumbers() تومان</td>
-                                    <td>@item.User?.Wallet.ToString("#,##").ToPersianNumbers() تومان</td>
-                                    <td>
-                                        <a class="btn btn-success" href="/Admin/Checkout/Confirm/@item.Id">تایید</a>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-danger" href="/Admin/Checkout/Reject/@item.Id">رد</a>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>@item.Id.ToPersianNumbers()</td>
+                                        <td>@item.User?.FullName.ToPersianNumbers()</td>
+                                        <td>@item.Price.ToString("#,##").ToPersianNumbers() تومان</td>
+                                        <td>@item.User?.Wallet.ToString("#,##").ToPersianNumbers() تومان</td>
+                                        <td>@item.BankName?.ToPersianNumbers()</td>
+                                        <td>@item.CartNumber?.ToPersianNumbers()</td>
+                                        <td>
+                                            <a class="btn btn-success" href="/Admin/Checkout/Confirm/@item.Id">تایید</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger" href="/Admin/Checkout/Reject/@item.Id">رد</a>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>

@@ -34,7 +34,9 @@ namespace DownloadableProduct.Services.Mapping
                 ResponseDate = source.ResponseDate,
                 Status = source.Status,
                 User = users.FirstOrDefault(c => c.Id == source.UserId),
-                RejectMessage = source.RejectMessage
+                RejectMessage = source.RejectMessage,
+                BankName = source.BankName,
+                CartNumber = source.CartNumber
             };
         }
         public static PaginationDto<CheckoutDto> ToDto(this PaginationDto<Checkout> source)

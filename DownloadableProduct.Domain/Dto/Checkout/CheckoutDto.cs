@@ -15,5 +15,7 @@ namespace DownloadableProduct.Domain.Dto.Checkout
         public CheckoutStatus Status { get; set; }
         public UserDto User { get; set; }
         public string RejectMessage { get; set; }
+        public string CartNumber { get; set; }
+        public string BankName { get; set; }
     }
 }

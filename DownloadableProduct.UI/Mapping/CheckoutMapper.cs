@@ -10,7 +10,8 @@ namespace DownloadableProduct.UI.Mapping
             return new CheckoutRequestDto
             {
                 Price = source.Price,
-                UserId = userId
+                UserId = userId,
+                CartNumber = source.CartNumber
             };
         }
     }
