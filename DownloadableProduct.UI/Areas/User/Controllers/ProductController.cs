@@ -128,7 +128,7 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         [ValidateAntiForgeryToken()]
         public IActionResult SetFile(SetFileViewModel model)
         {
-            var uploadResult = _fileHelper.Upload(model.File, (1024 * 1024 * 100));
+            var uploadResult = _fileHelper.Upload(model.File, (1024 * 1024 * 20));
 
             if (uploadResult.Success)
             {

@@ -23,7 +23,10 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
 
             ViewBag.CountProductConfirm = _userService.CountProductConfirm(UserId).Data.ToString();
 
-            ViewBag.Income = _userService.GetIncome(UserId).Data.ToString("#,##");
+            var incomeStr = _userService.GetIncome(UserId).Data.ToString("#,##");
+            if (string.IsNullOrEmpty(incomeStr))
+                incomeStr = "صفر";
+            ViewBag.Income = incomeStr;
 
             ViewBag.CountBuy = _userService.CountBuy(UserId).Data.ToString();
 
