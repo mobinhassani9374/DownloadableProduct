@@ -65,21 +65,21 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li><a href="/User/">خوش آمدید ! @User.GetFullName()</a></li>
                         @if (User.IsInRole("User"))
                         {
-                            <li><a href="/User/">خوش آمدید ! @User.GetFullName()</a></li>                       
-                            <li><a href="/User/">ناحیه کاربری</a></li>                       
+                            <li><a href="/User/">ناحیه کاربری</a></li>
                         }
-                        @*@if (User.IsInRole("Admin"))
+                        @if (User.IsInRole("Admin"))
                         {
-                            <li><a href="/Admin/">پنل ادمین</a></li>                       
-                        }*@
-                        <li><a href="/logout">خروج</a></li>                     
+                            <li><a href="/Admin/">پنل ادمین</a></li>
+                        }
+                        <li><a href="/logout">خروج</a></li>
                     }
                     else
                     {
                         <li><a href="/register">ثبت نام</a></li>
-                        <li><a href="/login">ورود</a></li>                   
+                        <li><a href="/login">ورود</a></li>
                     }
                 </ul>
             </div>
@@ -94,7 +94,7 @@
                 </div>
                 <div class="col-md-9 col-sm-hide">
                     <h1 class="header__logo__title">آی گرافیک (i-graphic)</h1>
-                    <div class="header__logo__desc">آی گرافیک مرجع بزرگ طرح های لایه باز و تصاویر استوک</div>
+                    <div class="header__logo__desc">آی گرافیک مرجع بزرگ خرید و فروش طرح های لایه باز و تصاویر استوک</div>
                     @* <div class="header__logo__phone">09212651629 - 09197442364</div> *@
                 </div>
             </div>
