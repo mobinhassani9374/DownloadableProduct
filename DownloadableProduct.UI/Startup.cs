@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using DownloadableProduct.UI.Helpers;
 using DownloadableProduct.DataAccess.Repositories;
 using DownloadableProduct.Services;
+using DownloadableProduct.UI.Middleware;
 
 namespace DownloadableProduct.UI
 {
@@ -69,6 +70,7 @@ namespace DownloadableProduct.UI
             services.AddScoped<CheckoutRepository>();
             services.AddScoped<PaymentRepository>();
             services.AddScoped<CartBankRepository>();
+            services.AddScoped<LogServiceRepository>();
             services.AddScoped<UserService>();
             services.AddScoped<AdminService>();
 
@@ -76,7 +78,7 @@ namespace DownloadableProduct.UI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext db, RoleManager<IdentityRole> roleManager,UserManager<User> userManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDbContext db, RoleManager<IdentityRole> roleManager, UserManager<User> userManager)
         {
             db.Database.Migrate();
 
@@ -90,6 +92,8 @@ namespace DownloadableProduct.UI
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseMiddleware<LogServiceMiddleware>();
 
             app.UseMvcWithDefaultRoute();
 

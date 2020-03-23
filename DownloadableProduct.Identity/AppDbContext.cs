@@ -17,6 +17,7 @@ namespace DownloadableProduct.Identity
         public DbSet<Checkout> Checkouts { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<CartBank> CartBanks { get; set; }
+        public DbSet<LogService> LogServices { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -67,6 +68,13 @@ namespace DownloadableProduct.Identity
             cartBank.Property(c => c.CartNumber).HasMaxLength(25).IsRequired(true);
             cartBank.Property(c => c.BankName).HasMaxLength(500);
             cartBank.Property(c => c.RejectMessage).HasMaxLength(550);
+
+            var logService = builder.Entity<LogService>();
+
+            logService.Property(c => c.Method).HasMaxLength(50);
+            logService.Property(c => c.RelativePath).HasMaxLength(250);
+            logService.Property(c => c.IpAddress).HasMaxLength(250);
+            logService.Property(c => c.UserId).HasMaxLength(60);
         }
     }
 }
