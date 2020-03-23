@@ -45,6 +45,7 @@ namespace DownloadableProduct.UI.Middleware
                 Elabsed = stopwatch.Elapsed,
                 IpAddress = context.Connection.RemoteIpAddress.ToString()
             });
+            logServiceRepositoy.Save();
         }
     }
 }
