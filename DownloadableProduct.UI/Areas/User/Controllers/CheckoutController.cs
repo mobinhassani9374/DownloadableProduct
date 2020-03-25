@@ -26,7 +26,10 @@ namespace DownloadableProduct.UI.Areas.User.Controllers
         public IActionResult Create()
         {
             var wallet = _userService.GetWallet(UserId).Data;
-            ViewBag.Wallet = wallet.ToString("#,##");
+            var walletStr = wallet.ToString("#,##");
+            if (string.IsNullOrEmpty(walletStr))
+                walletStr = "صفر";
+            ViewBag.Wallet = walletStr;
 
             var cartBanks = _userService.GetAllCartBankSucess(UserId);
             ViewBag.CartBanks = cartBanks.Data;

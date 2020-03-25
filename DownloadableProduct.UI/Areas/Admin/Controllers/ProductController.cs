@@ -3,6 +3,7 @@ using DownloadableProduct.Services;
 using DownloadableProduct.UI.Helpers;
 using DownloadableProduct.UI.Mapping;
 using DownloadableProduct.UI.Models.Product;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DownloadableProduct.UI.Areas.Admin.Controllers
@@ -12,13 +13,16 @@ namespace DownloadableProduct.UI.Areas.Admin.Controllers
         private readonly ProductService _productService;
         private readonly AdminService _adminService;
         private readonly FileHelper _fileHelper;
+        private readonly IHostingEnvironment _hostingEnvironment;
         public ProductController(ProductService productService,
             FileHelper fileHelper,
-            AdminService adminService)
+            AdminService adminService,
+            IHostingEnvironment hostingEnvironment)
         {
             _productService = productService;
             _fileHelper = fileHelper;
             _adminService = adminService;
+            _hostingEnvironment = hostingEnvironment;
         }
         public IActionResult Wating()
         {
@@ -135,11 +139,33 @@ namespace DownloadableProduct.UI.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        public IActionResult Reject(int id,string description)
+        public IActionResult Reject(int id, string description)
         {
             var result = _adminService.Reject(id, description);
-            Swal(true,"عملیات با موفقیت انجام شد");
+            Swal(true, "عملیات با موفقیت انجام شد");
             return RedirectToAction(nameof(Wating));
+        }
+        public IActionResult DownloadFile(int id)
+        {
+            var producut = _adminService.GetProduct(id);
+
+            if (producut.Data == null)
+                return RedirectPermanent("/Admin");
+
+            var filePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, "Files", producut.Data.File);
+
+            return PhysicalFile(filePath, "dekfoejf/fefwfw", $"{producut.Data.Title}{System.IO.Path.GetExtension(producut.Data.File)}");
+        }
+        public IActionResult DownloadImage(int id)
+        {
+            var producut = _adminService.GetProduct(id);
+
+            if (producut.Data == null)
+                return RedirectPermanent("/Admin");
+
+            var filePath = System.IO.Path.Combine(_hostingEnvironment.WebRootPath, "Files", producut.Data.File);
+
+            return PhysicalFile(filePath, "dekfoejf/fefwfw", $"{producut.Data.Title}{System.IO.Path.GetExtension(producut.Data.UserUpoadImage)}");
         }
     }
 }
